@@ -46,7 +46,7 @@
   - Copier le fichier .env dans un autre fichier .env.local
   - creation DataBase, configurer le fichier .env.local exemple :
   ```yaml
-   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/db_name?serverVersion=5.7"
+   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
   ```
   - lancez l'installation des dépendances
   ```sh
