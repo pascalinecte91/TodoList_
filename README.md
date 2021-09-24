@@ -4,30 +4,35 @@
 ## Votre rôle ici est donc d’améliorer la qualité de l’application. La qualité est un concept qui englobe bon nombre de sujets : on parle souvent de qualité de code, mais il y a également la qualité perçue par l’utilisateur de l’application ou encore la qualité perçue par les collaborateurs de l’entreprise, et enfin la qualité que vous percevez lorsqu’il vous faut travailler sur le projet.
 
 
-## Tâches à faire : 
-
+  ## Tâches à faire  
+```sh
 
   1. implémentation de nouvelles fonctionnalités 
   2. corriger les anomalies 
   3. implémenter les tests automatisés
 
-  - Correction des anomalies :
+Correction des anomalies :
+
     - automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créée.
     - Lors de la modification de la tâche, l’auteur ne peut pas être modifié.
     - les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur “anonyme”.
 
 
-  - Tests automatisés :
+Tests automatisés :
     - les implémenter avec PHPUnit
     - prévoir les données de test pour prouver le bon fonctionnement dans les    cas explicités ici.
     - fournir un rapport de couverture de code à la fin du projet. Taux de couverture supérieur à 70%.
 
 
+  Rôle utilisateur
   - Choisir un rôle pour un utilisateur
     - Administrateur (ROLE_ADMIN)
     - utilisateur (ROLE_USER)
 
-
+  Autorisation
+  - Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
+ - Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
+```
 ### Pré Requis
 
   
