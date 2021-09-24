@@ -1,6 +1,4 @@
-## P8 BileMo   -  Description du projet
-
-
+## P8 TodoList   -  Description du projet
 
 
 ## Votre rôle ici est donc d’améliorer la qualité de l’application. La qualité est un concept qui englobe bon nombre de sujets : on parle souvent de qualité de code, mais il y a également la qualité perçue par l’utilisateur de l’application ou encore la qualité perçue par les collaborateurs de l’entreprise, et enfin la qualité que vous percevez lorsqu’il vous faut travailler sur le projet.
@@ -34,6 +32,9 @@
 
   
   - Composer [Link download composer](https://getcomposer.org/download/)
+
+### Library
+  - composer require --dev theofidry/alice-data-fixtures
 
 
 ##  Guide d'installation
