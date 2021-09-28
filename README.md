@@ -11,23 +11,34 @@
   2. corriger les anomalies 
   3. implémenter les tests automatisés
 
-  ### Correction des anomalies :
+
+Correction des anomalies :
+
+
     - automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créée.
     - Lors de la modification de la tâche, l’auteur ne peut pas être modifié.
     - les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur “anonyme”.
 
 
-  ### Tests automatisés :
+
+Tests automatisés :
+
     - les implémenter avec PHPUnit
     - prévoir les données de test pour prouver le bon fonctionnement dans les    cas explicités ici.
     - fournir un rapport de couverture de code à la fin du projet. Taux de couverture supérieur à 70%.
 
-  ### Rôle utilisateur
+
+
+  Rôle utilisateur
+
   - Choisir un rôle pour un utilisateur
     - Administrateur (ROLE_ADMIN)
     - utilisateur (ROLE_USER)
 
-  ### Autorisation
+
+  Autorisation
+
+
   - Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
  - Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
 ```
