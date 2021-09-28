@@ -6,9 +6,10 @@ use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
     private $userPasswordHasher;
 
@@ -36,7 +37,13 @@ class UserFixtures extends Fixture
                 ->setUsername($faker->lastName())
                 ->setRoles(['ROLE_USER']);
             $manager->persist($user);
+            
+            $this->addReference('user_' . $u, $user);
         }
         $manager->flush();
+    }
+    public function getOrder()
+    {
+        return 1;
     }
 }

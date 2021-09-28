@@ -40,6 +40,12 @@ class Task
      */
     private $isDone;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $created_By;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -95,6 +101,18 @@ class Task
     public function toggle($flag): self
     {
         $this->isDone = $flag;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->created_By;
+    }
+
+    public function setCreatedBy(?User $created_By): self
+    {
+        $this->created_By = $created_By;
 
         return $this;
     }
