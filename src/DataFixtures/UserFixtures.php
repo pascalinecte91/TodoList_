@@ -6,16 +6,16 @@ use Faker\Factory;
 use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Symfony\Component\Security\Core\Encoder\UserPasswordHasherInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
-    private $encoder;
-    
-    public function __construct(UserPasswordHasherInterface $encoder)
+    private $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
     {
-        $this->encoder = $encoder;
+        $this->userPasswordHasher = $userPasswordHasher;
     }
 
 
@@ -24,19 +24,26 @@ class UserFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $user = new User();
         $user->setEmail('pascaline@gmail.com')
-        ->setPassword($this->encoder->encodePassword($user, 'pascale'))
-        ->setUsername('pascaline')
-        ->setRoles(['ROLE_ADMIN']);
-    
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
+            ->setUsername('pascaline')
+            ->setRoles(['ROLE_ADMIN']);
+            
+            $manager->persist($user);
 
-    for ($u = 0; $u <= 15; $u++) {
-        $user = new User();
-        $user->setEmail($faker->email())
-            ->setPassword($this->encoder->encodePassword($user, 'pascale'))
-            ->setUsername($faker->lastName())
-            ->setRoles(['ROLE_USER']);
-        $manager->persist($user);
-    }
+        for ($u = 0; $u < 15; $u++) {
+            $user = new User();
+            $user->setEmail($faker->email())
+                ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
+                ->setUsername($faker->lastName())
+                ->setRoles(['ROLE_USER']);
+            $manager->persist($user);
+            
+            $this->addReference('user_' . $u, $user);
+        }
         $manager->flush();
-}
+    }
+    public function getOrder()
+    {
+        return 1;
+    }
 }

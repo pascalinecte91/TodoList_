@@ -8,12 +8,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use App\Form\UserType;
+/** 
+* @IsGranted("ROLE_ADMIN", message="No access! Get out!")
+*/
 class UserController extends AbstractController
 {
     /**
      * @Route("/users", name="user_list")
-     * @IsGranted('ROLE_ADMIN') , message="No access! Get out!")
      */
      
     public function listAction()
@@ -36,7 +38,6 @@ class UserController extends AbstractController
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
-            $user->setRoles(['ROLE_USER']);
             $em->persist($user);
             $em->flush();
 
@@ -50,7 +51,6 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/edit", name="user_edit")
-     * @IsGranted("USER_ADMIN")
      */
     public function editAction(User $user, Request $request)
     {
@@ -59,6 +59,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
             $user->setPassword($password);
 
@@ -74,7 +75,6 @@ class UserController extends AbstractController
 
      /**
      * @Route("/users/{id}/delete", name="user_delete")
-     * @IsGranted("USER_ADMIN")
      */
     public function deleteUserAction(User $user)
     {
