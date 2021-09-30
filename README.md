@@ -38,6 +38,7 @@
 
 ### Library
   - composer require --dev theofidry/alice-data-fixtures
+  - composer require fzaninotto/faker
 
 
 ##  Guide d'installation
@@ -87,11 +88,11 @@
       - ...
 
   - Produire documentation des procédures  pour tous nouveaux développeurs souhaitant apporter des modifications au projet.
-    1. detail du processus de qualité
-    2. règle à respecter.
+      - detail du processus de qualité
+      - règle à respecter.
 
   - Audit de performance : 
-    * Blackfire obligatoire
+      - Blackfire obligatoire
 
 
 Auteur
