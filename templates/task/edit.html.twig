@@ -2,7 +2,7 @@
 
 {% block body %}
     <div class="row">
-        {% if app.user and user.isCreatedByUser(app.user) %}
+    
             <div class="create-task">
                 {{ form_start(form, {'action' : path('task_edit', { 'id' : task.id })}) }}
                     {{ form_widget(form) }}
@@ -10,8 +10,8 @@
                     <button type="submit" class="btn btn-success edit-btn-list">Modifier</button>
                 {{ form_end(form) }}
             </div>
-        {% else %}
+     
             <h3 class="red-access">Acces réservé aux utilisateurs connectés.</h3>
-        {% endif %}
+ 
     </div>
 {% endblock %}
