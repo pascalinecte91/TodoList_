@@ -4,18 +4,27 @@ namespace App\Controller;
 
 use App\Entity\Task;
 use App\Entity\User;
-use App\Entity\UserType;
+use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
+
 
 /** 
  * @IsGranted("ROLE_ADMIN", message="No access! Get out!")
  */
 class UserController extends AbstractController
 {
+    private $encoder;
+
+    public function __construct(UserPasswordHasherInterface $hasherInterface)
+    {
+        $this->hasher = $hasherInterface;
+    }
     /**
      * @Route("/users", name="user_list")
      */
@@ -37,7 +46,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $em->persist($user);
@@ -63,7 +72,7 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+            $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
             $this->getDoctrine()->getManager()->flush();
