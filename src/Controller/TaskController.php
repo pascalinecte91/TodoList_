@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Form\TaskType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -88,6 +89,7 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
+       
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
