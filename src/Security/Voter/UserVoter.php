@@ -54,7 +54,7 @@ class UserVoter extends Voter
 
     private function canDeleteUser(User $user)
     {
-              //creator can delete task
+              //creator can delete user
               return $user === $user->getRoles();
     }
 }
