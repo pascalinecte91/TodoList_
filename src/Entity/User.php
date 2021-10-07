@@ -26,8 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="enter mail.")
-     * @Assert\Email(message="An error has occurred.")
+     * @Assert\NotBlank(message="Veuillez entrer un email valide.")
+     * @Assert\Email(message="L'email {{ value }} n'est pas valide.")
      */
     private $email;
 
@@ -43,8 +43,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="string", length=25)
-     * @Assert\NotBlank(message="Enter your username please.")
+     * @ORM\Column(type="string", length=25, unique=true)
+     * @Assert\NotBlank(message="Entrez votre nom svp")
      */
     private $username;
 
@@ -61,6 +61,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -90,7 +96,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUsername(): string
     {
-        return (string) $this->email;
+        return (string) $this->username;
+    }
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     /**
@@ -147,13 +159,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function setUsername(string $username): self
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Task[]
      */
@@ -183,4 +188,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    
+
+    /**
+     * Set the value of username
+     *
+     * @return  self
+     */ 
+    
 }

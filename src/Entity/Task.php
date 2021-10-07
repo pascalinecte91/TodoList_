@@ -51,6 +51,13 @@ class Task
         return $this->id;
     }
 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+    
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_At;
@@ -116,4 +123,11 @@ class Task
 
         return $this;
     }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    
 }

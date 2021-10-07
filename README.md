@@ -47,10 +47,10 @@ Tests automatisés :
   
   - Composer [Link download composer](https://getcomposer.org/download/)
 
-### Library
+### Library/ Package
   - composer require --dev theofidry/alice-data-fixtures
   - composer require fzaninotto/faker
-
+  - composer require phpunit/phpunit
 
 ##  Guide d'installation
 
@@ -86,7 +86,13 @@ Tests automatisés :
  - Vider cache si besoin:
     - php bin/console cache:clear
 ```
-
+## Tests Php unit
+```
+- liste des arguments pouvant être utilisés
+    - php ./vendor/bin/phpunit --help
+- lancement des tests
+    - php ./vendor/bin/phpunit
+```
 ## Documentation
 
 
