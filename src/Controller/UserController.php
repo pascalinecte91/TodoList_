@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Form\UserType;
+use App\Form\UserTypeEdit;
+use App\Security\Voter\UserVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +41,7 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
+
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -65,8 +68,8 @@ class UserController extends AbstractController
      */
     public function editAction(Task $task, User $user, Request $request)
     {
-        $this->denyAccessUnlessGranted('task_edit', $task);
-        $form = $this->createForm(UserType::class, $user);
+        
+        $form = $this->createForm(UserTypeEdit::class, $user);
 
         $form->handleRequest($request);
 
@@ -75,6 +78,7 @@ class UserController extends AbstractController
             $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
 
+         
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
@@ -90,7 +94,7 @@ class UserController extends AbstractController
      */
     public function deleteUserAction(Task $task,User $user)
     {
-        $this->denyAccessUnlessGranted('task_delete', $task);
+        $this->denyAccessUnlessGranted(UserVoter::USER_DELETE, $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();

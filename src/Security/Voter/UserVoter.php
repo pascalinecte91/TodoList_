@@ -2,7 +2,7 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Task;
+
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -12,49 +12,30 @@ class UserVoter extends Voter
 {
     const USER_EDIT = 'user_edit';
     const USER_DELETE = 'user_delete';
+    const USER_CREATE = 'user_create';
+    const USER_VIEW = 'user_view';
 
-    protected function supports(string $attribute, $user): bool
+    protected function supports(string $attribute, $subject): bool
     {
-        // replace with your own logic
-        // https://symfony.com/doc/current/security/voters.html
-        return in_array($attribute, [self::USER_EDIT, self::USER_DELETE])
-            && $user instanceof \App\Entity\User;
+        return in_array($attribute, [self::USER_EDIT, self::USER_DELETE, self::USER_VIEW, self::USER_CREATE])
+            && $subject instanceof \App\Entity\User;
     }
 
-    protected function voteOnAttribute(string $attribute, $user, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
-        if(['ROLE_ADMIN', $user->getRoles()]) return false;
 
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case self::USER_EDIT:
-                // logic to determine if the user can EDIT
-                // return true or false
-                return $this->canEditUser($user);
-                break;
-
-            case 'USER_DELETE':
-                // logic to determine if the user can VIEW
-                // return true or false
-                return $this->canDeleteUser($user);
-                break;
-        }
-
-        return false;
+        return $this->canIfAdmin($user);
     }
-    private function canEditUser(User $user)
+
+    private function canIfAdmin(User $user)
     { 
-        return $user === $user->getRoles();
+        return $user === $user->getUserIdentifier();
     }
 
-    private function canDeleteUser(User $user)
-    {
-              //creator can delete user
-              return $user === $user->getRoles();
-    }
+ 
 }

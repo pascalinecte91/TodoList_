@@ -14,14 +14,14 @@ class TaskVoter extends Voter
     const TASK_DELETE = 'task_delete';
     const TASK_TOGGLE = 'task_toggle';
 
-    protected function supports(string $attribute, $task): bool
+    protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
         // https://symfony.com/doc/current/security/voters.html
 
-        // controle envi bonne info
+        // controle envoi bonne info
         return in_array($attribute, [self::TASK_EDIT, self::TASK_DELETE, self::TASK_TOGGLE])
-            && $task instanceof \App\Entity\Task;
+            && $subject instanceof \App\Entity\Task;
     }
 
     protected function voteOnAttribute(string $attribute, $task, TokenInterface $token): bool
@@ -31,48 +31,16 @@ class TaskVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-        // si le task a un createdby
-        if (null === $task->getCreatedBy()) return false;
-
-        // ... (check conditions and return true to grant permission) ...
-        switch ($attribute) {
-            case self::TASK_EDIT:
-                // logic to determine if the user can EDIT
-                // return true or false
-                return $this->canEdit($task, $user);
-                break;
-
-            case self::TASK_DELETE:
-                // logic to determine if the user can DELETE
-                // return true or false
-                return $this->canDelete($task, $user);
-                break;
-
-            case self::TASK_TOGGLE:
-                // logic to determine if the user can DELETE
-                // return true or false
-                return $this->canToggle($task, $user);
-                break;
+        // si le task n' a un createdby
+        if (null === $task->getCreatedBy()) {
+            return false;
         }
 
-        return false;
+        return $this->canIfOwner($task, $user);
     }
 
-    private function canEdit(Task $task, User $user)
-    { 
-        //creator can edit task
+    private function canIfOwner(Task $task, User $user)
+    {
         return $user === $task->getCreatedBy();
-    }
-
-    private function canDelete(Task $task, User $user)
-    {
-              //creator can delete task
-              return $user === $task->getCreatedBy();
-    }
-
-    private function canToggle(Task $task, User $user)
-    {
-              //creator can toggle task
-              return $user === $task->getCreatedBy();
     }
 }

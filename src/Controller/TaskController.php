@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Task;
+use App\Entity\User;
 use App\Form\TaskType;
+use App\Security\Voter\TaskVoter;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TaskController extends AbstractController
 {
@@ -49,15 +51,16 @@ class TaskController extends AbstractController
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function editAction(Task $task, Request $request)
+    public function editAction(Task $task, Request $request, User $user)
     {
+      
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->denyAccessUnlessGranted(TaskVoter::TASK_DELETE, $user);
             $this->getDoctrine()->getManager()->flush();
-
             $this->addFlash('success', 'The task is edit.');
 
             return $this->redirectToRoute('task_list');
