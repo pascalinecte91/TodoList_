@@ -91,7 +91,7 @@ Tests automatisés :
 - liste des arguments pouvant être utilisés
     - php ./vendor/bin/phpunit --help
 - lancement des tests
-    - php ./vendor/bin/phpunit
+    - php bin/phpunit
 ```
 ## Documentation
 

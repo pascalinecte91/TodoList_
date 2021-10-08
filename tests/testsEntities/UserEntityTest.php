@@ -51,13 +51,11 @@ class UserEntityTest extends KernelTestCase
 
     public function testTask(): void
     {
-        $task = $this->user->getTasks($this->task->getCreatedBy());
-        $this->assertSame($this->user->getTasks(), $task);
 
         $this->user->addTask($this->task);
-        $this->assertSame(1, $this->user->getTasks());
+        $this->assertSame(1, count($this->user->getTasks()));
 
         $this->user->removeTask($this->task);
-        $this->assertSame(0, $this->user->getTasks());
+        $this->assertSame(0, count( $this->user->getTasks()));
     }
 }
