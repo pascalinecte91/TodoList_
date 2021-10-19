@@ -30,16 +30,17 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-
+       
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
+          
             $em = $this->getDoctrine()->getManager();
             $task->setCreatedBy($this->getUser());
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success', 'The task is created.');
+            $this->addFlash('success','The task is created.');
 
             return $this->redirectToRoute('task_list');
         }
