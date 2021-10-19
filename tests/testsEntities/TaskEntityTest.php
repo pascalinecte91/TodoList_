@@ -8,12 +8,12 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class TaskEntityTest extends KernelTestCase
 {
         private $task;
-        private $created_At;
+        private $createdAt;
     
         public function setUp(): void
         {
             $this->task = new Task();
-            $this->created_At = new \DateTime();
+            $this->createdAt = new \DateTime();
       
         }
     
@@ -24,10 +24,10 @@ class TaskEntityTest extends KernelTestCase
         }
     
     
-        public function testCreated_At(): void
+        public function testCreatedAt(): void
         {
-            $this->task->setCreatedAt($this->created_At);
-            $this->assertSame($this->created_At, $this->task->getCreatedAt(),'test_created_at');
+            $this->task->setCreatedAt($this->createdAt);
+            $this->assertSame($this->createdAt, $this->task->getCreatedAt(),'test_created_at');
         }
     
         public function testTitle(): void
