@@ -31,7 +31,7 @@ class Task
 
     /**
      * @ORM\Column(type="text")
-     * @Assert\NotBlank(message="please enter a content.")
+     * @Assert\NotBlank()
      */
     private $content;
 

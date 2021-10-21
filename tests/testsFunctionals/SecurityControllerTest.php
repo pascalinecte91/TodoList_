@@ -14,29 +14,25 @@ class SecurityControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function loginCreateUser(): void
+    public function loginUser(): void
     {
         $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton('Sign in')->form();
-        $this->client->submit(
-            $form,
-            [
-                'username' => 'pascaline',
-                'password' => 'pascale'
-            ]
-        );
-    }
+        $this->client->submitForm('Sign in', [
+            'email' => 'test email',
+            'password' => 'test password'
+        ]);
 
+    }
     public function testLoginUser()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
         $this->client->request('GET', '/');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 
     public function testLogOutUser()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
         $crawler = $this->client->request('GET', '/');
         $crawler->selectLink('Se déconnecter')->link();
         $this->throwException(new \Exception('Logout'));
