@@ -26,8 +26,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
-     * @Assert\NotBlank(message="Veuillez entrer un email valide.")
-     * @Assert\Email(message="L'email {{ value }} n'est pas valide.")
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -44,7 +44,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string", length=25, unique=true)
-     * @Assert\NotBlank(message="Entrez votre nom svp")
+     * @Assert\NotBlank()
      */
     private $username;
 

@@ -14,22 +14,28 @@ class TaskControllerTest extends WebTestCase
         $this->client = static::createClient();
     }
 
-    public function loginCreateUser(): void
+    public function loginUser(): void
     {
     
         $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('jules16@club-internet.fr');
 
-        // retrieve the test user
-        $testUser = $userRepository->findOneByEmail('pascaline@gmail.com');
-
-        // simulate $testUser being logged in
         $this->client->loginUser($testUser);
     }
+
+    /* public function loginUserAdmin(): void
+    {
+    
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUserAdmin = $userRepository->findOneByEmail('pascaline@gmail.com');
+
+        $this->client->loginUserAdmin($testUserAdmin);
+    } */
 
 
     public function testListAction()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
         $this->client->request('GET', '/tasks/toggle');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
@@ -37,8 +43,7 @@ class TaskControllerTest extends WebTestCase
 
     public function testCreateAction()
     {
-        $this->loginCreateUser();
-
+        $this->loginUser();
         $crawler = $this->client->request('GET', '/tasks/create');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
@@ -55,35 +60,47 @@ class TaskControllerTest extends WebTestCase
 
     public function testCreateActionWhenAnonymous()
     {
-
+        $this->loginUser();
         $crawler = $this->client->request('GET', '/tasks/create');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         
+        $this->client->submitForm('Ajouter', [
+            'task[title]' => 'ajout d\'une tâche en tant qu\anonymous',
+            'task[content]' => 'contenu de la tâche créee en anonymous'
+        ]);
+
+        $crawler = $this->client->followRedirect();
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
     }
 
     public function testEditAction()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/13/edit');
+        $crawler = $this->client->request('GET', '/tasks/9/edit');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
+        $this->client->submitForm('Modifier', [
+            'task[title]' => 'test modification de la tâche',
+            'task[content]' => 'test modification du contenu'
+        ]);
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
 
-        $this->assertContains(
-            "Superbe ! La tâche a été créee",
-            $crawler->filter('h1')->text()
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $crawler->filter('div.alert-success')->count()
         );
     }
+
     public function testToggleTaskAction()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
 
         $crawler = $this->client->request('GET', '/tasks/15/toggle');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
 
@@ -93,11 +110,10 @@ class TaskControllerTest extends WebTestCase
 
     public function testDeleteTaskAction()
     {
-        $this->loginCreateUser();
+        $this->loginUser();
+        $crawler = $this->client->request('GET', '/tasks/20/delete');
 
-        $crawler = $this->client->request('GET', '/tasks/{id}/delete');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
+        $this->assertEquals(403, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
 

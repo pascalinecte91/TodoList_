@@ -15,7 +15,7 @@
 Correction des anomalies :
 
 
-    - automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créée.
+    - automatiquement, à la sauvegarde de la tâche, l’utilisateur authentifié soit rattaché à la tâche nouvellement créee.
     - Lors de la modification de la tâche, l’auteur ne peut pas être modifié.
     - les tâches déjà créées, il faut qu’elles soient rattachées à un utilisateur “anonyme”.
 
@@ -24,7 +24,7 @@ Correction des anomalies :
 Tests automatisés :
 
     - les implémenter avec PHPUnit
-    - prévoir les données de test pour prouver le bon fonctionnement dans les    cas explicités ici.
+    - prévoir les données de test pour prouver le bon fonctionnement dans les cas explicités ici.
     - fournir un rapport de couverture de code à la fin du projet. Taux de couverture supérieur à 70%.
 
 

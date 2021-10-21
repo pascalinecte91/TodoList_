@@ -19,11 +19,6 @@ class DefaultControllerTest extends WebTestCase
 
         $this->client->request('GET', '/');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-        $crawler = $this->client->request('GET', '/');
-
-        $this->assertContains(
-            "Bienvenue sur Todo List, l'application vous permettant de gérer l'ensemble de vos tâches sans effort !",
-            $crawler->filter('h1')->text()
-        );
+     
     }
 }
