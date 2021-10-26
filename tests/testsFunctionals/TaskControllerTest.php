@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\TestsFunctionnals;
+namespace App\Tests\TestsFunctionals;
 
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -18,7 +18,7 @@ class TaskControllerTest extends WebTestCase
     {
     
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('jules16@club-internet.fr');
+        $testUser = $userRepository->findOneByEmail('user@gmail.com');
 
         $this->client->loginUser($testUser);
     }
@@ -99,7 +99,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/15/toggle');
+        $crawler = $this->client->request('GET','/tasks/15/toggle');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
