@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Tests\TestsFunctionnals;
-
+namespace App\Tests\TestsFunctionals;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 
@@ -16,26 +16,28 @@ class SecurityControllerTest extends WebTestCase
 
     public function loginUser(): void
     {
-        $crawler = $this->client->request('GET', '/login');
-        $this->client->submitForm('Sign in', [
-            'email' => 'test email',
-            'password' => 'test password'
-        ]);
+        $userRepository = static::getContainer()->get(UserRepository::class);
+        $testUser = $userRepository->findOneByEmail('user@gmail.com');
+
+        $this->client->loginUser($testUser);
 
     }
     public function testLoginUser()
     {
         $this->loginUser();
-        $this->client->request('GET', '/');
-        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
+        $this->client->request('GET', '');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
-    public function testLogOutUser()
+    public function testLogOutUsers()
     {
         $this->loginUser();
-        $crawler = $this->client->request('GET', '/');
-        $crawler->selectLink('Se déconnecter')->link();
-        $this->throwException(new \Exception('Logout'));
+        $crawler = $this->client->request('GET', '');
+        $link=$crawler->selectLink('Se déconnecter')->link();
+        $this->client->click($link);
+       //$this->client->followRedirect();
+    //$this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertResponseIsSuccessful('deconnexion ok');
     }
 }

@@ -30,7 +30,14 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             
             $manager->persist($user);
 
-            $this->addReference('user_', $user);
+            $user = new User();
+            $user->setEmail('user@gmail.com')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
+            ->setUsername('user')
+            ->setRoles(['ROLE_USER']);
+            
+            $manager->persist($user);
+
 
         for ($u = 0; $u < 15; $u++) {
             $user = new User();

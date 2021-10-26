@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\TestsFunctionnals;
+namespace App\Tests\TestsFunctionals;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
