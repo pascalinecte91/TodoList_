@@ -1,10 +1,9 @@
 ## P8 TodoList   -  Description du projet
 
+## Votre rôle ici est donc d’améliorer la qualité de l’application. La qualité est un concept qui englobe bon nombre de sujets : on parle souvent de qualité de code, mais il y a également la qualité perçue par l’utilisateur de l’application ou encore la qualité perçue par les collaborateurs de l’entreprise, et enfin la qualité que vous percevez lorsqu’il vous faut travailler sur le projet
 
-## Votre rôle ici est donc d’améliorer la qualité de l’application. La qualité est un concept qui englobe bon nombre de sujets : on parle souvent de qualité de code, mais il y a également la qualité perçue par l’utilisateur de l’application ou encore la qualité perçue par les collaborateurs de l’entreprise, et enfin la qualité que vous percevez lorsqu’il vous faut travailler sur le projet.
+## Tâches à faire  
 
-
-  ## Tâches à faire  
 ```sh
 
   1. implémentation de nouvelles fonctionnalités 
@@ -42,29 +41,36 @@ Tests automatisés :
   - Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
  - Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
 ```
+
 ### Pré Requis
 
-  
-  - Composer [Link download composer](https://getcomposer.org/download/)
+- Composer [Link download composer](https://getcomposer.org/download/)
 
 ### Library/ Package
-  - composer require --dev theofidry/alice-data-fixtures
-  - composer require fzaninotto/faker
-  - composer require phpunit/phpunit
 
-##  Guide d'installation
+- composer require --dev theofidry/alice-data-fixtures
+- composer require fzaninotto/faker
+- composer require phpunit/phpunit
 
-  - Clonez ou téléchargez le repository GitHub dans le dossier :
+- Blackfire   (service saas)
+
+## Guide d'installation
+
+- Clonez ou téléchargez le repository GitHub dans le dossier:
+
   ```sh
   git clone https://github.com/pascalinecte91/TodoList_.git
   ```
 
-  - Copier le fichier .env dans un autre fichier .env.local
-  - creation DataBase, configurer le fichier .env.local exemple :
+- Copier le fichier .env dans un autre fichier .env.local
+- creation DataBase, configurer le fichier .env.local exemple :
+
   ```yaml
    DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
   ```
-  - lancez l'installation des dépendances
+
+- lancez l'installation des dépendances
+
   ```sh
    composer install
    
@@ -72,6 +78,7 @@ Tests automatisés :
   ```
 
 ## Commandes Symfony executions diverses
+
   ```
   1. Creation database : 
     - php bin/console doctrine:database:create
@@ -81,38 +88,39 @@ Tests automatisés :
     - php bin/console doctrine:fixture:load
 ```
 
-## Autres commandes:
+## Autres commandes
+
 ```
  - Vider cache si besoin:
     - php bin/console cache:clear
 ```
+
 ## Tests Php unit
+
 ```
 - liste des arguments pouvant être utilisés
     - php ./vendor/bin/phpunit --help
 - lancement des tests
     - php bin/phpunit
 ```
+
 ## Documentation
 
+- Produire une "documentation technique"
+  - expliquer l'implémentation de l'authentification
+  - prévoir qu'un débutant puisse :
+    - comprendre quel(s) fichier(s) il faut modifier et pourquoi
+    - comment s’opère l’authentification
+    - où sont stockés les utilisateurs.
+    - ...
 
-  - Produire une "documentation technique"
-    - expliquer l'implémentation de l'authentification
-    - prévoir qu'un débutant puisse :
-      - comprendre quel(s) fichier(s) il faut modifier et pourquoi
-      - comment s’opère l’authentification
-      - où sont stockés les utilisateurs.
-      - ...
+- Produire documentation des procédures  pour tous nouveaux développeurs souhaitant apporter des modifications au projet.
+  - detail du processus de qualité
+  - règle à respecter.
 
-  - Produire documentation des procédures  pour tous nouveaux développeurs souhaitant apporter des modifications au projet.
-      - detail du processus de qualité
-      - règle à respecter.
-
-  - Audit de performance : 
-      - Blackfire obligatoire
-
+- Audit de performance :
+  - Blackfire obligatoire
 
 Auteur
-- pascale CHRISTOPHE  Elève OpenClassroom
-   
 
+- pascale CHRISTOPHE  Elève OpenClassroom

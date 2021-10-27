@@ -21,4 +21,6 @@ class DefaultControllerTest extends WebTestCase
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
      
     }
+
+    
 }

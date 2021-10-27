@@ -38,4 +38,12 @@ class SecurityControllerTest extends WebTestCase
         $this->throwException(new \Exception('Logout'));
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
+
+    public function testSignPage()
+    {
+        $this->loginUser();
+        $crawler = $this->client->request('GET', '/');
+        $this->assertContains('Please', $crawler->filter('h1')->text());
+        $this->assertSelectorTextContains('h1', 'Please sign in ');
+}
 }

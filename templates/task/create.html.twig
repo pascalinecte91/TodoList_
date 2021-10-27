@@ -1,14 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block header_img %}<img class="slide-image" src="{{ asset('img/todolist_content.jpg') }}" alt="todo list">{% endblock %}
+
 {% block body %}
-    <div class="row">
-        {{ form_start(form, {'action' : path('task_create')}) }}
-            {{ form_widget(form) }}
+	<div class="row">
+		{{ form_start(form, {'action' : path('task_create')}) }}
+		{{ form_row(form.title) }}
+		{{ form_row(form.content) }}
 
-            <button type="submit" class="btn btn-success pull-right"><i class="glyphicon glyphicon-save"></i> Ajouter</button>
-        {{ form_end(form) }}
+		<button type="submit" class="btn btn-success pull-right">
+			<i class="glyphicon glyphicon-save"></i>
+			Ajouter</button>
+		{{ form_end(form) }}
 
-        <a href="{{ path('task_list') }}" class="btn btn-primary"><i class="glyphicon glyphicon-tasks"></i> Retour à la liste des tâches</a>
-    </div>
+		<a href="{{ path('task_list') }}" class="btn btn-primary">
+			<i class="glyphicon glyphicon-tasks"></i>
+			Retour à la liste des tâches</a>
+	</div>
 {% endblock %}
-
