@@ -25,7 +25,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $user = new User();
         $user->setEmail('pascaline@gmail.com')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
-            ->setUsername('pascaline')
+            ->setName('pascaline')
             ->setRoles(['ROLE_ADMIN']);
             
             $manager->persist($user);
@@ -33,7 +33,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             $user = new User();
             $user->setEmail('user@gmail.com')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
-            ->setUsername('user')
+            ->setName('user')
             ->setRoles(['ROLE_USER']);
             
             $manager->persist($user);
@@ -43,7 +43,7 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
             $user = new User();
             $user->setEmail($faker->email())
                 ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
-                ->setUsername($faker->lastName())
+                ->setName($faker->lastName())
                 ->setRoles(['ROLE_USER']);
                 
             $manager->persist($user);

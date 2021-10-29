@@ -16,7 +16,7 @@ class UserTypeEdit extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', TextType::class, ['label' => "Nom d'utilisateur"])
+            ->add('name', TextType::class, ['label' => "Nom d'utilisateur"])
             ->add('roles', ChoiceType::class, [
                 'label' => 'Roles de l\'utilisateur - Droits accès',
                 'choices' => ['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER'],

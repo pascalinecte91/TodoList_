@@ -57,10 +57,10 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->client->submitForm('creer un utilisateur', [
-            'user[username]' => 'test username',
-            'user[password][first]' => 'toto',
-            'user[password][second]' => 'toto',
-            'user[email]' => 'toto@gmail.com'
+            'user[name]' => 'test name',
+            'user[password][first]' => 'pascale',
+            'user[password][second]' => 'pascale',
+            'user[email]' => 'pascaline@gmail.com'
         ]);
 
         $crawler = $this->client->followRedirect();

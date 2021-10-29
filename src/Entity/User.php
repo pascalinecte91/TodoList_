@@ -46,7 +46,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Column(type="string", length=25, unique=true)
      * @Assert\NotBlank()
      */
-    private $username;
+    private $name;
 
     /**
      * @ORM\OneToMany(targetEntity=Task::class, mappedBy="created_at", orphanRemoval=true)
@@ -94,13 +94,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
-    public function getUsername(): string
+    public function getName(): string
     {
-        return (string) $this->username;
+        return (string) $this->name;
     }
-    public function setUsername(string $username): self
+    public function setName(string $name): self
     {
-        $this->username = $username;
+        $this->name = $name;
 
         return $this;
     }
@@ -201,5 +201,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      *
      * @return  self
      */ 
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername()
+    {
+        
+    }
     
 }
