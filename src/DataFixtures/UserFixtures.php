@@ -22,22 +22,23 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
+
         $user = new User();
         $user->setEmail('pascaline@gmail.com')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
             ->setName('pascaline')
             ->setRoles(['ROLE_ADMIN']);
-            
-            $manager->persist($user);
 
-            $user = new User();
-            $user->setEmail('user@gmail.com')
+        $manager->persist($user);
+
+        $user = new User();
+        $user->setEmail('user@gmail.com')
             ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
             ->setName('user')
             ->setRoles(['ROLE_USER']);
-            
-            $manager->persist($user);
 
+        $manager->persist($user);
+        $this->addReference('user', $user);
 
         for ($u = 0; $u < 15; $u++) {
             $user = new User();
@@ -45,9 +46,9 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
                 ->setPassword($this->userPasswordHasher->hashPassword($user, 'pascale'))
                 ->setName($faker->lastName())
                 ->setRoles(['ROLE_USER']);
-                
+
             $manager->persist($user);
-            
+
             $this->addReference('user_' . $u, $user);
         }
         $manager->flush();

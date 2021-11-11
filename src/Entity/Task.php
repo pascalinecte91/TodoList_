@@ -42,9 +42,9 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $created_By;
+    private $createdBy;
 
     public function __construct()
     {
@@ -120,12 +120,12 @@ class Task
 
     public function getCreatedBy(): ?User
     {
-        return $this->created_By;
+        return $this->createdBy;
     }
 
-    public function setCreatedBy(?User $created_By): self
+    public function setCreatedBy(?User $createdBy): self
     {
-        $this->created_By = $created_By;
+        $this->createdBy = $createdBy;
 
         return $this;
     }

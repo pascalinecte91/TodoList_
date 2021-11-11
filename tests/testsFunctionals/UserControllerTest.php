@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tests\TestsFunctionals;
+
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserControllerTest extends WebTestCase
@@ -67,8 +68,8 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
     }
-    
-  /*    public function testNewUserLoggedAsAdmin()
+
+    public function testNewUserLoggedAsAdmin()
     {
 
         $this->loginAsAdmin();
@@ -76,16 +77,17 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->client->submitForm('creer un utilisateur', [
-            'user[username]' => 'username',
+            'user[name]' => 'name',
             'user[password][first]' => 'password',
             'user[password][second]' => 'password',
+
             'user[email]' => 'test_username@gmail.com',
             'user[admin]' => 'true'
 
-        ]); 
+        ]);
 
         $crawler = $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->filter('div.alert-success')->count());
-    }  */
+    }
 }

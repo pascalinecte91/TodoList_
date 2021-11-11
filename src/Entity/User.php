@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="created_at", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="createdAt", orphanRemoval=true)
      */
     private $tasks;
 

@@ -3,16 +3,19 @@
 {% block header_title %}
 	{% if is_granted('ROLE_ADMIN') %}
 		<h1>Créer un utilisateur</h1>
-	{% endblock %}
 
-{% else %}
-	<h1>S'enregistrer</h1>
-{% endif %}{% endblock %}{% block header_img %}{% endblock %}{% block body %}
-<div class="row">
-	{{ form_start(form, {'action' : path('user_create')}) }}
-	{{ form_widget(form) }}
+	{% else %}
+		<h1>S'enregistrer</h1>
+	{% endif %}
+{% endblock %}
+{% block header_img %}{% endblock %}
+{% block body %}
+	<div class="row">
+		{{ form_start(form, {'action' : path('user_create')}) }}
+		{{ form_widget(form) }}
 
-	<button type="submit" class="btn btn-success pull-right">
-		Ajouter</button>
-	{{ form_end(form) }}
-</div>{% endblock %}
+		<button type="submit" class="btn btn-success pull-right">
+			Ajouter</button>
+		{{ form_end(form) }}
+	</div>
+{% endblock %}

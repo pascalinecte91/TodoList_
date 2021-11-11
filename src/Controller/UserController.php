@@ -41,7 +41,7 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
-
+        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 

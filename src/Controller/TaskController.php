@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class TaskController extends AbstractController
 {
@@ -30,17 +31,17 @@ class TaskController extends AbstractController
     {
         $task = new Task();
         $form = $this->createForm(TaskType::class, $task);
-       
+
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
-          
+
             $em = $this->getDoctrine()->getManager();
             $task->setCreatedBy($this->getUser());
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success','The task is created.');
+            $this->addFlash('success', 'The task is created.');
 
             return $this->redirectToRoute('task_list');
         }
@@ -52,9 +53,9 @@ class TaskController extends AbstractController
      * @Route("/tasks/{id}/edit", name="task_edit")
      * @IsGranted("ROLE_USER")
      */
-    public function editAction(Task $task, Request $request, User $user)
+    public function editAction(Task $task, Request $request, UserInterface $user)
     {
-      
+
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -93,7 +94,7 @@ class TaskController extends AbstractController
      */
     public function deleteTaskAction(Task $task)
     {
-       
+
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();
@@ -103,4 +104,3 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 }
-

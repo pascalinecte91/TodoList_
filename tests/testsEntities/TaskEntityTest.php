@@ -27,7 +27,7 @@ class TaskEntityTest extends KernelTestCase
         public function testCreatedAt(): void
         {
             $this->task->setCreatedAt($this->createdAt);
-            $this->assertSame($this->createdAt, $this->task->getCreatedAt(),'test_created_at');
+            $this->assertSame($this->createdAt, $this->task->getCreatedAt(),'test_createdAt');
         }
     
         public function testTitle(): void

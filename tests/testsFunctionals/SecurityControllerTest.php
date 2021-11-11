@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Tests\TestsFunctionals;
+
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -20,7 +21,6 @@ class SecurityControllerTest extends WebTestCase
         $testUser = $userRepository->findOneByEmail('user@gmail.com');
 
         $this->client->loginUser($testUser);
-
     }
     public function testLoginUser()
     {
@@ -33,10 +33,10 @@ class SecurityControllerTest extends WebTestCase
     {
         $this->loginUser();
         $crawler = $this->client->request('GET', '');
-        $link=$crawler->selectLink('Se déconnecter')->link();
+        $link = $crawler->selectLink('Se déconnecter')->link();
         $this->client->click($link);
-       //$this->client->followRedirect();
-    //$this->client->followRedirect();
+        $this->client->followRedirect();
+        $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful('deconnexion ok');
     }
