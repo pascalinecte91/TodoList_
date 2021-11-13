@@ -22,6 +22,7 @@
 							<th>#</th>
 							<th>Nom d'utilisateur</th>
 							<th>Adresse email</th>
+							<th>Admin</th>
 							<th>Actions</th>
 						</tr>
 					</thead>
@@ -29,13 +30,21 @@
 						{% for user in users %}
 							<tr>
 								<th scope="row">{{ loop.index }}</th>
-								<td>{{ user.username }}</td>
+								<td>{{ user.name }}</td>
 								<td>{{ user.email }}</td>
 								<td>
+                                {% if "ROLE_ADMIN" in user.roles %}
+								<span class="glyphicon glyphicon-ok"></span>
+								{% endif %}
+                                </td>
+                                <td>
 									<a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-success btn-sm">
 										Modifier</a>
 								</td>
 							</tr>
+							<div class="d-none" id="user-{{ user.name }}" style="display: none">
+								<p>{{ user.id }}</p>
+							</div>
 						{% endfor %}
 					</tbody>
 				</table>

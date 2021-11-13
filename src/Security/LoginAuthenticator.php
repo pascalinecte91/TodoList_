@@ -39,23 +39,26 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
     public function authenticate(Request $request): PassportInterface
     {
-      //dd($request);
-      dd($request->get('_csrf_token'));
+
+        dump($request->get('email'));
+        dump($request->get('password'));
+        dump($request->get('_csrf_token'));
+     
+
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
             new UserBadge($email),
-           
+
             new PasswordCredentials($request->request->get('password', '')),
-        
+
             [
                 new CsrfTokenBadge('authenticate', $request->get('_csrf_token')),
             ]
 
         );
-       
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -71,7 +74,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): Response
     {
-        // dd($request);
+
         if ($request->hasSession()) {
             $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }

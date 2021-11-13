@@ -55,13 +55,12 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request, UserInterface $user)
     {
-
+        $this->denyAccessUnlessGranted(TaskVoter::TASK_EDIT, $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->denyAccessUnlessGranted(TaskVoter::TASK_DELETE, $user);
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash('success', 'The task is edit.');
 
@@ -90,11 +89,10 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
-     * @IsGranted("ROLE_ADMIN")
      */
     public function deleteTaskAction(Task $task)
     {
-
+        $this->denyAccessUnlessGranted(TaskVoter::TASK_DELETE, $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

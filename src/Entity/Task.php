@@ -5,9 +5,11 @@ namespace App\Entity;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @ORM\Entity(repositoryClass=TaskRepository::class)
+ * @ParamConverter("task")
  */
 class Task
 {
@@ -129,6 +131,8 @@ class Task
 
         return $this;
     }
+    
+
 
     /**
      * Set the value of id

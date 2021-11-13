@@ -27,11 +27,12 @@ class TaskVoter extends Voter
     protected function voteOnAttribute(string $attribute, $task, TokenInterface $token): bool
     {
         $user = $token->getUser(); // find user login
+    
         // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
-        // si le task n' a un createdby
+        // si le task n' a pas un createdby
         if (null === $task->getCreatedBy()) {
             return false;
         }
@@ -41,6 +42,7 @@ class TaskVoter extends Voter
 
     private function canIfOwner(Task $task, User $user)
     {
+       
         return $user === $task->getCreatedBy();
     }
 }
