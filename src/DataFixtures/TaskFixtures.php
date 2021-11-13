@@ -20,7 +20,7 @@ class TaskFixtures extends Fixture implements OrderedFixtureInterface
             $user = $this->getReference('user');
             $task = new Task();
             $task->setCreatedAt($faker->dateTimeInInterval('-1 week', '+4 days'))
-                ->setTitle($faker->sentence(5))
+                ->setTitle($faker->sentence(4))
                 ->setCreatedBy($user)
                 ->setContent($faker->paragraph(2, true))
                 ->setIsDone($faker->boolean([rand(0, 1)]));
@@ -31,7 +31,7 @@ class TaskFixtures extends Fixture implements OrderedFixtureInterface
         for ($i = 0; $i < 3; $i++) {
             $task = new Task();
             $task->setCreatedAt($faker->dateTimeInInterval('-1 week', '+4 days'))
-                ->setTitle($faker->sentence(5))
+                ->setTitle($faker->sentence(4))
                 ->setCreatedBy(null)
                 ->setContent($faker->paragraph(2, true))
                 ->setIsDone($faker->boolean([rand(0, 1)]));
@@ -43,7 +43,7 @@ class TaskFixtures extends Fixture implements OrderedFixtureInterface
             $user = $this->getReference('user_' . $faker->numberBetween(1, 10));
             $task = new Task();
             $task->setCreatedAt($faker->dateTimeInInterval('-1 week', '+4 days'))
-                ->setTitle($faker->sentence(5))
+                ->setTitle($faker->sentence(4))
                 ->setCreatedBy($user)
                 ->setContent($faker->paragraph(2, true))
                 ->setIsDone($faker->boolean([rand(0, 1)]));

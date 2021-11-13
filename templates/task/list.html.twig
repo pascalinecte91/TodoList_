@@ -20,22 +20,30 @@
 							{% endif %}
 						</h4>
 						<h4>
+
 							<a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a>
 						</h4>
+						<p>par:
+							{% if task.createdBy == null %}anonyme
+							{% endif %}
+							{{ task.createdBy }}</p>
 						<p>{{ task.content }}</p>
 					</div>
 					<div>
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
-							<button class="btn btn-info btn-sm pull-right" style="margin-bottom:10px">
-								{% if not task.isDone %}Marquer comme faite{% else %}A terminer
+							<button class="btn btn-info btn-sm pull-right" style="margin-bottom:10px; margin-top:5px;">
+								{% if not task.isDone %}Marquer comme faite{% else %}A finir
 								{% endif %}
 							</button>
 						</form>
-						<form action="{{ path('task_delete', {'id' : task.id }) }}">
-							<button class="btn btn-danger btn-sm pull-left">
-								<i class="glyphicon glyphicon-trash"></i>
-								Supprimer</button>
-						</form>
+						{% if (is_granted('ROLE_ADMIN') and task.createdBy == null)
+                        or (app.user.name == task.createdBy) %}
+							<form action="{{ path('task_delete', {'id' : task.id }) }}">
+								<button class="btn btn-danger btn-sm pull-left" style="margin-bottom:10px; margin-top:5px;">
+									<i class="glyphicon glyphicon-trash"></i>
+									Supprimer</button>
+							</form>
+						{% endif %}
 					</div>
 				</div>
 			</div>

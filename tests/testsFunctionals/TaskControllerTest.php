@@ -61,20 +61,10 @@ class TaskControllerTest extends WebTestCase
 
     public function testCreateActionWhenAnonymous()
     {
-
         $crawler = $this->client->request('GET', '/tasks/create');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
-        $this->client->submitForm('Ajouter', [
-            'task[title]' => 'ajout d\'une tâche en tant qu\anonymous',
-            'task[content]' => 'contenu de la tâche créee en anonymous'
-        ]);
-
-        $crawler = $this->client->followRedirect();
-
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
-        $this->assertSame(1, $crawler->filter('div.alert.alert-success')->count());
     }
+
 
     public function testEditAction()
     {
@@ -112,7 +102,7 @@ class TaskControllerTest extends WebTestCase
     public function testDeleteTaskAction()
     {
         $this->loginUser();
-        $crawler = $this->client->request('GET', '/tasks/25/delete');
+        $crawler = $this->client->request('GET', '/tasks/2/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 

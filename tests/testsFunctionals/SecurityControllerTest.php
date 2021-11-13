@@ -35,7 +35,9 @@ class SecurityControllerTest extends WebTestCase
         $crawler = $this->client->request('GET', '');
         $link = $crawler->selectLink('Se déconnecter')->link();
         $this->client->click($link);
+        // redirection /logout vers /
         $this->client->followRedirect();
+        // redirection / vers /login
         $this->client->followRedirect();
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful('deconnexion ok');

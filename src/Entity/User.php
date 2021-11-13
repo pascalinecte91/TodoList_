@@ -49,7 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="createdAt", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Task::class, mappedBy="createdBy", orphanRemoval=true)
      */
     private $tasks;
 
@@ -98,6 +98,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return (string) $this->name;
     }
+
     public function setName(string $name): self
     {
         $this->name = $name;
@@ -207,6 +208,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getUsername()
     {
         
+    }  public function __toString() {
+        return $this->name;
     }
+
     
 }
