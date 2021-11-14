@@ -40,11 +40,6 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): PassportInterface
     {
 
-        dump($request->get('email'));
-        dump($request->get('password'));
-        dump($request->get('_csrf_token'));
-     
-
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);

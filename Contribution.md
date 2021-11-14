@@ -1,6 +1,4 @@
-## Contribution pour ToDoList App
-
-
+# Contribution pour ToDoList App
 
 1/ Installez le projet en local
 Si ce n'est déjà fait, installez le projet sur votre machine via Git, en suivant les insctructions d'installation du fichier Readme.
@@ -22,6 +20,18 @@ Lancez les tests pour vérifier qu'ils passent toujours après vos modifs :
 6/ Verifiez la qualité de votre code Avant de commiter votre code
 
 7/ Commitez votre code git commit -m "votre message détaillé"
+
+Type :
+
+- build : Changements qui affectent les dépendances externes (par exemple : composer require/remove etc...)
+- ci : Modifications apportées aux fichiers de configuration
+- doc : Modifications de la documentation uniquement
+- feat : Une nouvelle fonctionnalité
+- fix : Correction d'un bug
+- perf : Un changement de code qui améliore les performances
+- refactor : Un changement de code qui ne corrige pas un bogue et n'ajoute pas de fonctionnalité
+- style : Changements qui n'affectent pas la signification du code (espace blanc, formatage, points-virgules manquants, etc.)
+- test : Ajout de tests manquants ou correction de tests existants
 
 8/ Push votre branch git push origin my-new-feature
 

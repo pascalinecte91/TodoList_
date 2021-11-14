@@ -1,5 +1,5 @@
-## Contributing to ToDoList App.
-```bash
+# Contributing to ToDoList App
+
 1/ Install the locally project
 If you have not already done so, install the project on your machine via Git, following the installation instructions of the Readme file.
 More details on the GitHub documentation.
@@ -20,7 +20,18 @@ and Check if it is not already created.  Update if necessary.
 
 6/ Check the quality of your code before committing your code
 
-7/ Commit your git code commit -m "message"
+7/ Commit your git code commit -m "message".
+
+Type=
+
+1- build: Changes that affect external dependencies (for example: composer require/remove etc...)
+2- ci: Changes to configuration files
+3- doc: Changes to the documentation only
+4- feat: A new feature
+5- fix: Fixed a bug
+6- perf: A code change that improves performance
+7- refactor: A code change that does not fix a bug and does not add functionality
+
 
 8/ Push your branch git push origin my-new-feature
 
@@ -42,4 +53,4 @@ and Check if it is not already created.  Update if necessary.
 13/ Name conventions
 Use namespaces for all your classes and name them in UpperCamelCase
 Variables, functions, and arguments must be named in camelCase
-```
+

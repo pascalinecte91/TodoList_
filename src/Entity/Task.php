@@ -43,7 +43,7 @@ class Task
     private $isDone;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tasks", fetch="EAGER")
      * @ORM\JoinColumn(nullable=true)
      */
     private $createdBy;
@@ -103,6 +103,11 @@ class Task
     }
 
     public function getIsDone(): ?bool
+    {
+        return $this->isDone;
+    }
+
+    public function isDone(): ?bool
     {
         return $this->isDone;
     }

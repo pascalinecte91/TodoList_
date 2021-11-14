@@ -24,18 +24,19 @@ class UserVoter extends Voter
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        // if the user is anonymous, do not grant access
+        // pas d'acces si anonymous
         if (!$user instanceof UserInterface) {
             return false;
         }
-
-        return $this->canIfAdmin($user);
+           // Tout faire si role admin
+           if (in_array('ROLE_ADMIN', $user->getRoles())) {
+            return true;
+        }
+             // ROLE_USER peut modifier son compte à lui uniquement
+        if (in_array($attribute, ['USER_EDIT', 'USER_DELETE'])) {
+            return $user === $subject;
+        }
+        return false;
     }
 
-    private function canIfAdmin(User $user)
-    { 
-        return $user === $user->getUserIdentifier();
-    }
-
- 
 }
