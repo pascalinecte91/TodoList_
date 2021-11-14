@@ -51,7 +51,6 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/edit", name="task_edit")
-     * @IsGranted("ROLE_USER")
      */
     public function editAction(Task $task, Request $request, UserInterface $user)
     {
@@ -75,14 +74,15 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/{id}/toggle", name="task_toggle")
-     * @IsGranted("ROLE_USER")
      */
     public function toggleTaskAction(Task $task)
     {
-        $task->toggle(!$task->getIsDone());
+        $this->denyAccessUnlessGranted(TaskVoter::TASK_TOGGLE, $task);
+        $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        $this->addFlash('success', sprintf('The task %s is noted as done.', $task->getTitle()));
+        $isDone = $task->isDone() ? 'achevée' : 'à finir';
+        $this->addFlash('success', sprintf('The task %s is noted as done.', $task->getTitle(), $isDone));
 
         return $this->redirectToRoute('task_list');
     }

@@ -15,10 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
-
-/** 
- * @IsGranted("ROLE_ADMIN", message="No access! Get out!")
- */
 class UserController extends AbstractController
 {
     private $encoder;
@@ -29,6 +25,7 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/users", name="user_list")
+     * @IsGranted("ROLE_ADMIN")
      */
 
     public function listAction()
@@ -65,6 +62,8 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/edit", name="user_edit")
+     * @IsGranted("USER_EDIT",subject="user")
+     * @IsGranted("USER_VIEW",subject="user")
      */
     public function editAction(Task $task, User $user, Request $request)
     {
@@ -91,6 +90,7 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/delete", name="user_delete")
+     * @IsGranted("USER_DELETE", subject="user")
      */
     public function deleteUserAction(Task $task,User $user)
     {

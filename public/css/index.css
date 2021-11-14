@@ -1,0 +1,41 @@
+#content-scroll {
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+
+#glyph-ok-remove {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* home page */
+#accueil-div1 {
+    margin-bottom: 10px;
+    margin-left: -5px;
+}
+
+#navbar {
+    background-color: #e3f2fd;
+}
+#pull-right {
+    margin-bottom: 5px;
+    margin-right:-5px
+}
+
+/* liste users*/
+
+#pull-right-list {  
+     margin-bottom:10px;
+     margin-top:5px;
+}
+
+#pull-left-list {
+    margin-bottom:10px;
+    margin-top:5px;
+}
+
+#create-task {
+    margin-bottom:5px
+}

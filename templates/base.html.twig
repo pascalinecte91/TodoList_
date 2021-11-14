@@ -16,11 +16,12 @@
 
 		<!-- Custom CSS -->
 		<link href="{{ asset('css/shop-homepage.css') }}" rel="stylesheet">
+		<link href="{{ asset('css/index.css') }}" rel="stylesheet">
 
 	</head>
 
 	<body>
-		<nav class="navbar navbar-light navbar-fixed-top" style="background-color: #e3f2fd;" role="navigation">
+		<nav class="navbar navbar-light navbar-fixed-top" div id="navbar" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
 					<a class="navbar-brand" href="{{ path('homepage') }}">To Do List app</a>
@@ -31,9 +32,9 @@
 
 		<!-- Page Content -->
 		<div class="container">
-			<div class="d-flex justify-content-center" style="margin-bottom:10px;">
-				{% if is_granted('ROLE_ADMIN') %}
+			<div class="d-flex justify-content-center"div id="accueil-div1">
 					<a href="{{ path('user_create') }}" class="btn btn-success">
+                {% if is_granted('ROLE_ADMIN') %}
 						<i class="glyphicon glyphicon-pencil"></i>
 						Créer un utilisateur</a>
 
@@ -47,7 +48,7 @@
 					{% endif %}
 
 					{% if app.user %}
-						<a href="{{ path('app_logout') }}" class="pull-right btn btn-danger" style="margin-bottom: 5px;>
+						<a href="{{ path('app_logout') }}" class="pull-right btn btn-danger" div id="pull-right">
 							<i class="glyphicon glyphicon-log-out"></i>
 							Se déconnecter</a>
 					{% endif %}
