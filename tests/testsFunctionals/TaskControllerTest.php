@@ -40,6 +40,23 @@ class TaskControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
+    public function testListActionFinished()
+    {
+        $this->loginUserAdmin();
+        
+        $this->client->request('GET', '/tasks/ending');
+        self::assertEquals(302, $this->client->getResponse()->getStatusCode());
+
+        
+
+        $crawler = $this->client->request('GET', '/tasks/ending');
+
+        $link = $crawler->selectLink('Voir toutes les taches à finir')->link();
+        $crawler = $this->client->click($link);
+
+        $this->assertSame("Liste des tâches terminées", $crawler->filter('h2')->text());
+    }
+
 
     public function testCreateAction()
     {
@@ -70,7 +87,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/2/edit');
+        $crawler = $this->client->request('GET', '/tasks/6/edit');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->client->submitForm('Modifier', [
@@ -90,7 +107,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/3/toggle');
+        $crawler = $this->client->request('GET', '/tasks/1/toggle');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
@@ -102,7 +119,7 @@ class TaskControllerTest extends WebTestCase
     public function testDeleteTaskAction()
     {
         $this->loginUser();
-        $crawler = $this->client->request('GET', '/tasks/2/delete');
+        $crawler = $this->client->request('GET', '/tasks/5/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 

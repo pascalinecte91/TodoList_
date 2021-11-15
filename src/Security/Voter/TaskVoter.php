@@ -13,6 +13,7 @@ class TaskVoter extends Voter
     const TASK_EDIT = 'task_edit';
     const TASK_DELETE = 'task_delete';
     const TASK_TOGGLE = 'task_toggle';
+ 
 
     protected function supports(string $attribute, $subject): bool
     {
@@ -24,24 +25,33 @@ class TaskVoter extends Voter
             && $subject instanceof \App\Entity\Task;
     }
 
-    protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, $task, TokenInterface $token): bool
     {
         $user = $token->getUser(); // find user login
-
-        // si le user est anomyme :  pas acces
+    
+        // if the user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
-
+        // si le task n' a pas un createdby
+        if (null === $task->getCreatedBy()) {
+            return false;
+        }
         if ($attribute == 'TASK_TOGGLE') {
             // user doit etre l'auteur de la tache  ou etre  ROLE ADMIN 
-            return $user === $subject->getCreatedBy() || in_array('ROLE_ADMIN', $user->getRoles());
+            return $user === $task->getCreatedBy() || in_array('ROLE_ADMIN', $user->getRoles());
         }
-        if (in_array($attribute, ['TASK_EDIT', 'TASK_DELETE', 'TASK_VIEW'])) {
+        if (in_array($attribute, ['TASK_EDIT', 'TASK_DELETE'])) {
             // le user doit etre le proprietaire de la tache  ou avoir le role admin 
-            return ($user === $subject->getCreatedBy()) || (in_array('ROLE_ADMIN', $user->getRoles()) && null === $subject->getCreatedBy());
+            return ($user === $task->getCreatedBy()) || (in_array('ROLE_ADMIN', $user->getRoles()) && null === $task->getCreatedBy());
         }
 
-        return false;
+        return $this->canIfOwner($task, $user);
+    }
+
+    private function canIfOwner(Task $task, User $user)
+    {
+       
+        return $user === $task->getCreatedBy();
     }
 }

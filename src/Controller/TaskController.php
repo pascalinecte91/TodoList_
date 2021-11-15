@@ -20,7 +20,16 @@ class TaskController extends AbstractController
      */
     public function listAction()
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findAll()]);
+        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => 0])]);
+    }
+
+
+    /**
+     * @Route("/tasks/ending", name="task_list_ending")
+     */
+    public function listEndingAction()
+    {
+        return $this->render('task/list.ending.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => 1])]);
     }
 
     /**
@@ -41,7 +50,7 @@ class TaskController extends AbstractController
             $em->persist($task);
             $em->flush();
 
-            $this->addFlash('success', 'The task is created.');
+            $this->addFlash('success', 'La tâche est crée.');
 
             return $this->redirectToRoute('task_list');
         }
@@ -54,14 +63,14 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request, UserInterface $user)
     {
-        $this->denyAccessUnlessGranted(TaskVoter::TASK_EDIT, $task);
+        // $this->denyAccessUnlessGranted(TaskVoter::TASK_EDIT,$task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-            $this->addFlash('success', 'The task is edit.');
+            $this->addFlash('success', 'Tâche correctement modifiée.');
 
             return $this->redirectToRoute('task_list');
         }
@@ -77,16 +86,17 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
-        $this->denyAccessUnlessGranted(TaskVoter::TASK_TOGGLE, $task);
+        // $this->denyAccessUnlessGranted(TaskVoter::TASK_TOGGLE, $task);
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        $isDone = $task->isDone() ? 'achevée' : 'à finir';
-        $this->addFlash('success', sprintf('The task %s is noted as done.', $task->getTitle(), $isDone));
-
+        if ($task->isDone() == 1) {
+            $this->addFlash('success', sprintf('La tâche %s est bien notée comme finie', $task->getTitle()));
+        } else {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme à finir', $task->getTitle()));
+        }
         return $this->redirectToRoute('task_list');
     }
-
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
@@ -97,7 +107,7 @@ class TaskController extends AbstractController
         $em->remove($task);
         $em->flush();
 
-        $this->addFlash('success', 'The task is deleted.');
+        $this->addFlash('success', 'La tâche est bien supprimée');
 
         return $this->redirectToRoute('task_list');
     }

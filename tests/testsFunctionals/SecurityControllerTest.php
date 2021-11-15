@@ -42,4 +42,11 @@ class SecurityControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
         $this->assertResponseIsSuccessful('deconnexion ok');
     }
+
+    public function testBadPassword()
+    {
+        $crawler =$this->client->request('GET', '/login');
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        
+    }
 }

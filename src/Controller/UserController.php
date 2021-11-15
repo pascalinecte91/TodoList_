@@ -62,8 +62,6 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/edit", name="user_edit")
-     * @IsGranted("USER_EDIT",subject="user")
-     * @IsGranted("USER_VIEW",subject="user")
      */
     public function editAction(Task $task, User $user, Request $request)
     {
