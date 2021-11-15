@@ -18,42 +18,31 @@ class UserControllerTest extends WebTestCase
     {
 
         $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton('Sign in')->form();
-        $this->client->submit(
-            $form,
-            [
-                'email' => 'pascaline@gmail.com',
-                'password' => 'pascale'
-            ]
-        );
+        $form = $crawler->selectButton('Connexion')->form();
+        $this->client->submit($form,['email' => 'userTest@gmail.com','password' => 'pascale']);
     }
 
     public function loginAsAdmin(): void
     {
         $crawler = $this->client->request('GET', '/login');
-        $form = $crawler->selectButton('Sign in')->form();
-        $this->client->submit(
-            $form,
-            [
-                'email' => 'pascaline@gmail.com',
-                'password' => 'pascale'
-            ]
-        );
+        $form = $crawler->selectButton('Connexion')->form();
+        $this->client->submit($form,['email' => 'pascaline@gmail.com','password' => 'pascale']);
     }
 
 
     public function testListAction(): void
-    {
-        $this->loginAsUser();
+    { 
+        $this->loginAsAdmin();
+        $crawler= $this->client->request('GET', '/users');
+        //$this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertContains('Liste des utilisateurs', $crawler->filter('h1')->text());
+        $this->assertContains('Modifier', $crawler->filter('a.btn.btn-primary')->text());
 
-        $this->client->request('GET', '/users');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
     public function testNewUserLoggedAsUser()
     {
 
-        $this->loginAsUser();
         $crawler = $this->client->request('GET', '/users/create');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
@@ -80,9 +69,8 @@ class UserControllerTest extends WebTestCase
             'user[name]' => 'name',
             'user[password][first]' => 'password',
             'user[password][second]' => 'password',
-
             'user[email]' => 'test_username@gmail.com',
-            'user[admin]' => 'true'
+            'user[roles]' => 'true'
 
         ]);
 
