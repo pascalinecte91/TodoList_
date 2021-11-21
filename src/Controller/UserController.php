@@ -25,7 +25,7 @@ class UserController extends AbstractController
     }
     /**
      * @Route("/users", name="user_list")
-     * @IsGranted("ROLE_ADMIN")
+     * @isGranted("ROLE_ADMIN")
      */
 
     public function listAction()
@@ -38,7 +38,6 @@ class UserController extends AbstractController
      */
     public function createAction(Request $request)
     {
-        
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
 
@@ -48,10 +47,10 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-
+        
             $em->persist($user);
             $em->flush();
-
+            
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('user_list');
@@ -62,10 +61,11 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/edit", name="user_edit")
+     * 
      */
-    public function editAction(Task $task, User $user, Request $request)
+    public function editAction(User $user, Request $request)
     {
-        
+  
         $form = $this->createForm(UserTypeEdit::class, $user);
 
         $form->handleRequest($request);
@@ -74,7 +74,7 @@ class UserController extends AbstractController
 
             $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-
+            
          
             $this->getDoctrine()->getManager()->flush();
 
@@ -88,11 +88,11 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/delete", name="user_delete")
-     * @IsGranted("USER_DELETE", subject="user")
+     * @IsGranted("USER_DELETE")
      */
     public function deleteUserAction(Task $task,User $user)
     {
-        $this->denyAccessUnlessGranted(UserVoter::USER_DELETE, $task);
+        $this->denyAccessUnlessGranted('user_delete', $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();

@@ -7,30 +7,29 @@
 		<div class="d-flex justify-content-md-between">
         <h2 class="text-center">Liste des tâches en cours</h2>
 		<a href="{{ path('task_create') }}" class="btn btn-primary" div id="create-task">Créer une tâche</a>
-        <a href="{{ path('task_list_ending') }}"class="btn btn-primary pull-right">Vers les tâches finies</a>
+        <a href="{{ path('task_list_ending') }}"class="btn btn-primary pull-right">Aller aux  tâches terminées</a>
 	</div>
 	<div class="row">
 		{% for task in tasks %}
 			<div class="col-sm-4 col-lg-4 col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
-						{# <h4 class="pull-right" div id="ok-remove">
-							{% if task.isDone %}<span class="glyphicon glyphicon-ok"></span>{% else %}<span class="glyphicon glyphicon-remove"></span>{% endif %}</h4> #}
-					
-                            {% if is_granted('ROLE_ADMIN') %}
+                    {% if (is_granted("task_edit", task))%}
                             <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
+                            <p>{{ task.content }}</p>
                                 <p>par:{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
-                                <p>{{ task.content }}</p>
-                                {% endif %}
+                                
+                         {% endif %}      
                     </div>
-                    <div>
+                    <div>	
+                    {% if (is_granted("task_toggle", task)) %}
 						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
 							<button class="btn btn-info btn-sm pull-right" div id="pull-right-list">
 								{% if not task.isDone %}Clic si terminée{% else %}A finir{% endif %}
 							</button>
 						</form>
-						{% if (is_granted('ROLE_ADMIN') and task.createdBy == null)
-                        or (app.user.name == task.createdBy) %}
+                        {% endif %}
+						{% if (is_granted("task_delete", task)) %}
 							<form action="{{ path('task_delete', {'id' : task.id }) }}">
 								<button class="btn btn-danger btn-sm pull-left" div id="pull-left-list">
 									<i class="glyphicon glyphicon-trash"></i>

@@ -30,7 +30,7 @@ Tests automatisés :
 
   Rôle utilisateur
 
-  - Choisir un rôle pour un utilisateur
+    Choisir un rôle pour un utilisateur
     - Administrateur (ROLE_ADMIN)
     - utilisateur (ROLE_USER)
 
@@ -38,68 +38,9 @@ Tests automatisés :
   Autorisation
 
 
-  - Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
- - Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
-```
+     Seuls les utilisateurs ayant le rôle administrateur (ROLE_ADMIN) doivent pouvoir accéder aux pages de gestion des utilisateurs.
 
-### Pré Requis
-
-- Composer [Link download composer](https://getcomposer.org/download/)
-
-## Library/ Package
-
-- composer require fzaninotto/faker
-- composer require phpunit/phpunit
-
-## Guide d'installation
-
-- Clonez ou téléchargez le repository GitHub dans le dossier :
-
-```sh
-git clone https://github.com/pascalinecte91/TodoList_.git
-```
-
-- Copier le fichier .env dans un autre fichier .env.local
-- creation DataBase, configurer le fichier .env.local exemple :
-
-```yaml
-   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
-  ```
-
-- lancez l'installation des dépendances
-
-```sh
-   composer install
-   
-  - php bin/console asset:install
-  ```
-
-## Commandes Symfony executions diverses
-
-```
-  1. Creation database : 
-    - php bin/console doctrine:database:create
-  2. Proceder à la migration : 
-    - php bin/console doctrine:migrations:migrate
-  3. Installer les fixtures :
-    - php bin/console doctrine:fixture:load
-```
-
-## Autres commandes
-
-```
- - Vider cache si besoin:
-    - php bin/console cache:clear
-```
-
-## Tests Php unit
-
-```sh
-- liste des arguments pouvant être utilisés
-    - php ./vendor/bin/phpunit --help
-- lancement des tests
-    - php bin/phpunit
-    example : php bin/phpunit tests\TestsFunctionals --testdox
+    Les tâches rattachées à l’utilisateur “anonyme” peuvent être supprimées uniquement par les utilisateurs ayant le rôle administrateur (ROLE_ADMIN).
 ```
 
 ## Documentation
@@ -107,10 +48,9 @@ git clone https://github.com/pascalinecte91/TodoList_.git
 - Produire une "documentation technique"
 - expliquer l'implémentation de l'authentification
 - prévoir qu'un débutant puisse :
-- comprendre quel(s) fichier(s) il faut modifier et pourquoi
-- comment s’opère l’authentification
-- où sont stockés les utilisateurs.
-- ...
+comprendre quel(s) fichier(s) il faut modifier et pourquoi,
+comment s’opère l’authentification,
+où sont stockés les utilisateurs.
 
 - Produire documentation des procédures  pour tous nouveaux développeurs souhaitant apporter des modifications au projet.
 - detail du processus de qualité
@@ -119,7 +59,63 @@ git clone https://github.com/pascalinecte91/TodoList_.git
 - Audit de performance :
 - Blackfire obligatoire
 
+## Pré Requis
 
-Auteur
+- Composer [Link download composer](https://getcomposer.org/download/)
 
-- pascale CHRISTOPHE  Elève OpenClassroom
+## Library/ Package
+
+- composer require fzaninotto/faker
+- composer require phpunit/phpunit [doc php unit](https://phpunit.readthedocs.io/en/latest/installation.html#requirements)
+
+## Guide d'installation
+
+- Clonez ou téléchargez le repository GitHub dans le dossier :
+
+```sh
+git clone(https://github.com/pascalinecte91/TodoList_.git)
+
+
+- Copier le fichier .env dans un autre fichier .env.local
+- creation DataBase, configurer le fichier .env.local exemple :
+
+
+   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
+  ```
+
+- lancez l'installation des dépendances
+
+```sh
+   composer install
+  ```
+
+## Commandes Symfony executions diverses
+
+```
+1. Creation database :
+    - php bin/console doctrine:database:create
+2. Proceder à la migration : 
+    - php bin/console doctrine:migrations:migrate
+3. Installer les fixtures :
+    - php bin/console doctrine:fixture:load
+
+Autres commandes:
+
+    Vider cache si besoin:
+    php bin/console cache:clear
+```
+
+## Tests Php unit
+
+```sh
+- liste des arguments pouvant être utilisés
+    - php ./vendor/bin/phpunit --help
+- lancement des tests:
+    - php bin/phpunit
+    example : php bin/phpunit tests\TestsFunctionals --testdox
+- data base environnements pour tests : (.env.test.local)
+
+DATABASE_URL="mysql://root@127.0.0.1:3306/todoList_test?serverVersion=5.7"
+```
+
+### Contribution (EN/FR) [Fr](https://github.com/pascalinecte91/TodoList_/blob/main/Contribution.md)  / [En](https://github.com/pascalinecte91/TodoList_/blob/main/Contributing.md)

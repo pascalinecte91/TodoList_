@@ -16,7 +16,6 @@ class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks/toggle", name="task_list")
-     * @IsGranted("ROLE_USER")
      */
     public function listAction()
     {
@@ -34,7 +33,6 @@ class TaskController extends AbstractController
 
     /**
      * @Route("/tasks/create", name="task_create")
-     * @IsGranted("ROLE_USER")
      */
     public function createAction(Request $request)
     {
@@ -63,7 +61,7 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request, UserInterface $user)
     {
-        // $this->denyAccessUnlessGranted(TaskVoter::TASK_EDIT,$task);
+        $this->denyAccessUnlessGranted('task_edit',$task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -86,7 +84,7 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
-        // $this->denyAccessUnlessGranted(TaskVoter::TASK_TOGGLE, $task);
+        $this->denyAccessUnlessGranted('task_toggle',$task);
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
@@ -97,12 +95,30 @@ class TaskController extends AbstractController
         }
         return $this->redirectToRoute('task_list');
     }
+
+    /**
+     * @Route("/tasks/{id}/toggle", name="task_toggle_ending")
+     * 
+     */
+    public function toggleTaskActionEnding(Task $task)
+    {
+        $task->toggle(!$task->isDone());
+        $this->getDoctrine()->getManager()->flush();
+
+        if ($task->isDone() == 1) {
+            $this->addFlash('success', sprintf('La tâche %s est bien notée comme finie', $task->getTitle()));
+        } else {
+            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme à finir', $task->getTitle()));
+        }
+        return $this->redirectToRoute('task_list_ending');
+    }
+    
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
     public function deleteTaskAction(Task $task)
     {
-        $this->denyAccessUnlessGranted(TaskVoter::TASK_DELETE, $task);
+        $this->denyAccessUnlessGranted('task_delete',$task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

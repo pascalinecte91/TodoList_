@@ -22,6 +22,7 @@ class SecurityControllerTest extends WebTestCase
 
         $this->client->loginUser($testUser);
     }
+    
     public function testLoginUser()
     {
         $this->loginUser();
