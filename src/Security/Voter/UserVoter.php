@@ -33,11 +33,12 @@ class UserVoter extends Voter
             return true;
         }
 
-        return $this->canIfAdmin($user);
-    }
+        // ROLE_USER ne peut que editer ou supprimer son compte
+        if (in_array($attribute, ['USER_EDIT', 'USER_DELETE', 'USER_VIEW',])) {
 
-    private function canIfAdmin(User $user)
-    {
-        return $user === $user->getUserIdentifier();
+            return $user === $subject;
+        }
+
+        return false;
     }
 }

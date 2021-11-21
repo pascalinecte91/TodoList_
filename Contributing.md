@@ -22,16 +22,17 @@ and Check if it is not already created.  Update if necessary.
 
 7/ Commit your git code commit -m "message".
 
-Type=
+Type =
 
-1- build: Changes that affect external dependencies (for example: composer require/remove etc...)
-2- ci: Changes to configuration files
-3- doc: Changes to the documentation only
-4- feat: A new feature
-5- fix: Fixed a bug
-6- perf: A code change that improves performance
-7- refactor: A code change that does not fix a bug and does not add functionality
-
+- build: changes that affect the build system or external dependencies (npm, make...)
+- here: changes concerning integration or configuration files and scripts (Travis, Ansible, BrowserStack...)
+- feat: added a new feature
+- fix: fixed a bug
+- perf: improved performance
+- refactor: change that does not bring new functionality or performance improvements
+- style: change that does not bring any functional or semantic alteration (indentation, formatting, adding space, renaming a variable...)
+- docs: writing or updating documentation
+- test: adding or modifying tests-
 
 8/ Push your branch git push origin my-new-feature
 

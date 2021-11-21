@@ -31,10 +31,10 @@ class UserEntityTest extends KernelTestCase
         $this->assertSame('pascaline@gmail.com', $this->user->getEmail());
     }
 
-    public function testUsername(): void
+    public function testName(): void
     {
-        $this->user->setUsername('pascaline');
-        $this->assertSame('pascaline', $this->user->getUsername());
+        $this->user->setName('pascaline');
+        $this->assertSame('pascaline', $this->user->getName());
     }
 
     public function testPassword(): void

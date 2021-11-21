@@ -19,11 +19,12 @@
 				<table class="table">
 					<thead>
 						<tr>
-							<th>#</th>
+							<th>Id</th>
 							<th>Nom d'utilisateur</th>
 							<th>Adresse email</th>
-							<th>Admin</th>
-							<th>Actions</th>
+							<th>Role Admin</th>
+                            <th>Nb de tâches</th>
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -37,9 +38,12 @@
 										<span class="glyphicon glyphicon-ok"></span>
 									{% endif %}
 								</td>
+							<td class="d-none d-md-table-cell">{{ user.tasks.count }}
+							</td>
 								<td>
 									<a href="{{ path('user_edit', {'id' : user.id}) }}" class="btn btn-success btn-sm">
-										Modifier</a>
+										<span class="d-none d-sm-inline">Modifier
+									</span></a>
 								</td>
 							</tr>
 							<div class="d-none" id="user-{{ user.name }}" style="display: none">

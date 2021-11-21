@@ -14,25 +14,25 @@
 			<div class="col-sm-4 col-lg-4 col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
-						{# <h4 class="pull-right" div id="ok-remove">
-							{% if task.isDone %}
-								<span class="glyphicon glyphicon-ok"></span>
-							{% else %}
-								<span class="glyphicon glyphicon-remove"></span>
-							{% endif %}
-						</h4> #}
+					
+                        {% if (is_granted("task_edit", task))%}
 						<h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
-						<p>par:{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
 						<p>{{ task.content }}</p>
+                        <p>par:{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
+                        {% endif %}
 					</div>
-				<div>
-				{# 	<form action="{{ path('task_toggle', {'id' : task.id }) }}">
-						<button class="btn btn-info btn-sm pull-right" div id="pull-right-list">
-							{% if not task.isDone %} Marquer comme faite{% else %}Finies{% endif %}
-						</button>
-					</form> #}
-						{% if (is_granted('ROLE_ADMIN') and task.createdBy == null)
-                        or (app.user.name == task.createdBy) %}
+				
+                 
+					   {% if (is_granted("task_toggle", task)) %}
+						<form action="{{ path('task_toggle_ending', {'id' : task.id }) }}">
+							<button class="btn btn-info btn-sm pull-right" div id="pull-right-list">
+						{% if  task.isDone %}Clic si Modifier{% else %}Marquer Faite{% endif %}
+							</button>
+						</form>
+                        {% endif %}
+                    
+				
+						{% if (is_granted("task_delete", task))%}
 							<form action="{{ path('task_delete', {'id' : task.id }) }}">
 								<button class="btn btn-danger btn-sm pull-left" div id="pull-left-list">
 									<i class="glyphicon glyphicon-trash"></i>
@@ -40,7 +40,7 @@
 							</form>
 						{% endif %}
 					</div>
-				</div>
+				
 			</div>
 		<div class="d-none" id="task{{ task.title }}" style="display: none">
                 <p>{{ task.id }}</p>

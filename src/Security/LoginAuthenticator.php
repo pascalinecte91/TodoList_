@@ -73,7 +73,7 @@ class LoginAuthenticator extends AbstractLoginFormAuthenticator
         if ($request->hasSession()) {
             $request->getSession()->set(Security::AUTHENTICATION_ERROR, $exception);
         }
-
+      
         $url = $this->getLoginUrl($request);
 
         return new RedirectResponse($url);

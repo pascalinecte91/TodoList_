@@ -23,15 +23,15 @@ Lancez les tests pour vérifier qu'ils passent toujours après vos modifs :
 
 Type :
 
-- build : Changements qui affectent les dépendances externes (par exemple : composer require/remove etc...)
-- ci : Modifications apportées aux fichiers de configuration
-- doc : Modifications de la documentation uniquement
-- feat : Une nouvelle fonctionnalité
-- fix : Correction d'un bug
-- perf : Un changement de code qui améliore les performances
-- refactor : Un changement de code qui ne corrige pas un bogue et n'ajoute pas de fonctionnalité
-- style : Changements qui n'affectent pas la signification du code (espace blanc, formatage, points-virgules manquants, etc.)
-- test : Ajout de tests manquants ou correction de tests existants
+- build : changements qui affectent le système de build ou des dépendances externes (npm, make…)
+- ci : changements concernant les fichiers et scripts d’intégration ou de configuration (Travis, Ansible, BrowserStack…)
+- feat : ajout d’une nouvelle fonctionnalité
+- fix : correction d’un bug
+- perf : amélioration des performances
+- refactor : modification qui n’apporte ni nouvelle fonctionnalité ni d’amélioration de performances
+- style : changement qui n’apporte aucune altération fonctionnelle ou sémantique (indentation, mise en forme, ajout d’espace, renommage d’une   variable…)
+- docs : rédaction ou mise à jour de documentation
+- test : ajout ou modification de tests-
 
 8/ Push votre branch git push origin my-new-feature
 
