@@ -71,51 +71,48 @@ où sont stockés les utilisateurs.
 ## Guide d'installation
 
 - Clonez ou téléchargez le repository GitHub dans le dossier :
+- composer install
 
 ```sh
 git clone(https://github.com/pascalinecte91/TodoList_.git)
+```
 
-
-- Copier le fichier .env dans un autre fichier .env.local
-- creation DataBase, configurer le fichier .env.local exemple :
-
-
-   DATABASE_URL="mysql://db_user:db_password@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
-  ```
-
-- lancez l'installation des dépendances
+ Configuration du fichier .env
 
 ```sh
-   composer install
-  ```
-
-## Commandes Symfony executions diverses
-
+APP_ENV=dev
+APP_SECRET=3df989c8978c1eb689760998b99d99aa
+APP_SECRET=3df989c8978c1eb689760998b99d99aa
+DATABASE_URL="mysql://root@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
 ```
-1. Creation database :
-    - php bin/console doctrine:database:create
-2. Proceder à la migration : 
-    - php bin/console doctrine:migrations:migrate
-3. Installer les fixtures :
-    - php bin/console doctrine:fixture:load
 
+## Créer la base de données et charger les fixtures
+```sh
+php bin/console doctrine:database:create
+php bin/console doctrine:migrations:migrate
+php bin/console doctrine:fixture:load
+```
 Autres commandes:
 
-    Vider cache si besoin:
+Vider cache si besoin:
     php bin/console cache:clear
+
+## Tests / Php unit
+
+Installer et créer la base de données et charger les fixtures
+* data base environnements pour tests : (.env.test.local)
+DATABASE_URL="mysql://root@127.0.0.1:3306/todoList_test?serverVersion=5.7"
+```
+php bin/console doctrine:database:create --env=test
+php bin/console doctrine:schema:create --env=test
+php bin/console doctrine:fixtures:load --env=test
 ```
 
-## Tests Php unit
-
+Liste des arguments pouvant être utilisés
 ```sh
-- liste des arguments pouvant être utilisés
-    - php ./vendor/bin/phpunit --help
-- lancement des tests:
-    - php bin/phpunit
-    example : php bin/phpunit tests\TestsFunctionals --testdox
-- data base environnements pour tests : (.env.test.local)
-
-DATABASE_URL="mysql://root@127.0.0.1:3306/todoList_test?serverVersion=5.7"
+php ./vendor/bin/phpunit --help
+Lancement des tests: php bin/phpunit
+exemple : php bin/phpunit tests\TestsFunctionals --testdox
 ```
 
 ### Contribution (EN/FR) [Fr](https://github.com/pascalinecte91/TodoList_/blob/main/Contribution.md)  / [En](https://github.com/pascalinecte91/TodoList_/blob/main/Contributing.md)

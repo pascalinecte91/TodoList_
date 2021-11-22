@@ -12,19 +12,16 @@
 	<div class="row">
 		{% for task in tasks %}
 			<div class="col-sm-4 col-lg-4 col-md-4">
-				<div class="thumbnail">
+				<div class="thumbnail" >
 					<div class="caption">
-					
-                        {% if (is_granted("task_edit", task))%}
 						<h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
-						<p>{{ task.content }}</p>
-                        <p>par:{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
-                        {% endif %}
+                        <p><strong>Auteur:</strong>{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
+                        <p>{{ task.content }} </p>
 					</div>
 				
                  
 					   {% if (is_granted("task_toggle", task)) %}
-						<form action="{{ path('task_toggle_ending', {'id' : task.id }) }}">
+						<form action="{{ path('task_toggle', {'id' : task.id }) }}">
 							<button class="btn btn-info btn-sm pull-right" div id="pull-right-list">
 						{% if  task.isDone %}Clic si Modifier{% else %}Marquer Faite{% endif %}
 							</button>

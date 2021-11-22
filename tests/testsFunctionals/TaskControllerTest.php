@@ -29,7 +29,7 @@ class TaskControllerTest extends WebTestCase
         $userRepository = static::getContainer()->get(UserRepository::class);
         $testUserAdmin = $userRepository->findOneByEmail('pascaline@gmail.com');
 
-        $this->client->loginUserAdmin($testUserAdmin);
+        $this->client->loginUser($testUserAdmin);
     } 
 
 
@@ -80,7 +80,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/9/edit');
+        $crawler = $this->client->request('GET', '/tasks/1/edit');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
 
         $this->client->submitForm('Modifier', [

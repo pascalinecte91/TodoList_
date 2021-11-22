@@ -6,29 +6,33 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Form\TaskType;
 use App\Security\Voter\TaskVoter;
+use App\Repository\TaskRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class TaskController extends AbstractController
 {
     /**
      * @Route("/tasks/toggle", name="task_list")
      */
-    public function listAction()
+    public function listAction(TaskRepository $taskRepository)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => 0])]);
+        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findAllForCurrentUser(false)]);
     }
 
 
     /**
      * @Route("/tasks/ending", name="task_list_ending")
      */
-    public function listEndingAction()
+    public function listEndingAction(TaskRepository $taskRepository)
     {
-        return $this->render('task/list.ending.html.twig', ['tasks' => $this->getDoctrine()->getRepository(Task::class)->findBy(['isDone' => 1])]);
+        
+        return $this->render('task/list.ending.html.twig', ['tasks' => $taskRepository->findAllForCurrentUser(true)]);
     }
 
     /**
@@ -88,7 +92,7 @@ class TaskController extends AbstractController
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        if ($task->isDone() == 1) {
+        if ($task->isDone() == 1)  {
             $this->addFlash('success', sprintf('La tâche %s est bien notée comme finie', $task->getTitle()));
         } else {
             $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme à finir', $task->getTitle()));
@@ -96,22 +100,6 @@ class TaskController extends AbstractController
         return $this->redirectToRoute('task_list');
     }
 
-    /**
-     * @Route("/tasks/{id}/toggle", name="task_toggle_ending")
-     * 
-     */
-    public function toggleTaskActionEnding(Task $task)
-    {
-        $task->toggle(!$task->isDone());
-        $this->getDoctrine()->getManager()->flush();
-
-        if ($task->isDone() == 1) {
-            $this->addFlash('success', sprintf('La tâche %s est bien notée comme finie', $task->getTitle()));
-        } else {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme à finir', $task->getTitle()));
-        }
-        return $this->redirectToRoute('task_list_ending');
-    }
     
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")

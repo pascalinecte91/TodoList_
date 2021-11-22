@@ -14,12 +14,12 @@
 			<div class="col-sm-4 col-lg-4 col-md-4">
 				<div class="thumbnail">
 					<div class="caption">
-                    {% if (is_granted("task_edit", task))%}
+                   
+                             
                             <h4><a href="{{ path('task_edit', {'id' : task.id }) }}">{{ task.title }}</a></h4>
-                            <p>{{ task.content }}</p>
                                 <p>par:{% if task.createdBy == null %}anonyme{% endif %}{{ task.createdBy }}</p>
-                                
-                         {% endif %}      
+                                <p>{{ task.content }}</p>   
+                     
                     </div>
                     <div>	
                     {% if (is_granted("task_toggle", task)) %}
