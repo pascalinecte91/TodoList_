@@ -39,8 +39,6 @@ class UserControllerTest extends WebTestCase
         $this->loginUserAdmin();
         $crawler= $this->client->request('GET', '/users');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        //$this->assertContains('Liste des utilisateurs', $crawler->filter('h1')->text());
-        //$this->assertContains('Modifier', $crawler->filter('a.btn.btn-primary')->text());
 
     }
 
@@ -57,18 +55,14 @@ class UserControllerTest extends WebTestCase
 
         $this->loginUserAdmin();
         $crawler = $this->client->request('GET', '/users/create');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-
-         $this->client->submitForm('creer un utilisateur', [
-            'user[name]' => 'name',
-            'user[password][first]' => 'password',
-            'user[password][second]' => 'password',
-            'user[email]' => 'test_username@gmail.com',
-            'user[roles]' => 'true'
-
-        ]);
-
-        $crawler = $this->client->followRedirect();
+        //$buttonCrawlerNode =$crawler->selectButton('submit');
+        //$form = $buttonCrawlerNode->form();
+        
+         $this->client->submitForm('Ajouter', [
+            'user[name]' => 'test du name',
+            'user[email]' => 'test du mail'
+        ]);   
+        
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode()); 
        //$this->assertEquals(1, $crawler->filter('div.alert-success')->count());
     }

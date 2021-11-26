@@ -113,6 +113,7 @@ Liste des arguments pouvant être utilisés
 php ./vendor/bin/phpunit --help
 Lancement des tests: php bin/phpunit
 exemple : php bin/phpunit tests\TestsFunctionals --testdox
+          php bin/console/phpunit --filter [nom de la fonction]      
 ```
 
-### Contribution (EN/FR) [Fr](https://github.com/pascalinecte91/TodoList_/blob/main/Contribution.md)  / [En](https://github.com/pascalinecte91/TodoList_/blob/main/Contributing.md)
+### Contribution (FR/EN) [Fr](https://github.com/pascalinecte91/TodoList_/blob/main/Contribution.md)  / [En](https://github.com/pascalinecte91/TodoList_/blob/main/Contributing.md)

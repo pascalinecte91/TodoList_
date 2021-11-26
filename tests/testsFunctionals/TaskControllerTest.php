@@ -100,7 +100,7 @@ class TaskControllerTest extends WebTestCase
     {
         $this->loginUser();
 
-        $crawler = $this->client->request('GET', '/tasks/6/toggle');
+        $crawler = $this->client->request('GET', '/tasks/12/toggle');
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
         $crawler = $this->client->followRedirect();
@@ -112,7 +112,7 @@ class TaskControllerTest extends WebTestCase
     public function testDeleteTaskAction()
     {
         $this->loginUser();
-        $crawler = $this->client->request('GET', '/tasks/7/delete');
+        $crawler = $this->client->request('GET', '/tasks/24/delete');
 
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
