@@ -56,6 +56,6 @@ class UserEntityTest extends KernelTestCase
         $this->assertSame(1, count($this->user->getTasks()));
 
         $this->user->removeTask($this->task);
-        $this->assertSame(0, count( $this->user->getTasks()));
+        $this->assertSame(0, count($this->user->getTasks()));
     }
 }

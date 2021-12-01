@@ -22,23 +22,24 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         parent::__construct($registry, User::class);
     }
 
-    public function findLastElement()
+    /* public function findLastElement()
     {
         return $this->createQueryBuilder('u')
             ->orderBy('u.id', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
-
+ */
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
     public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newHashedPassword): void
     {
         if (!$user instanceof User) {
-            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+            throw new UnsupportedUserException(sprintf(
+                'Instances of "%s" are not supported.', \get_class($user)
+            ));
         }
 
         $user->setPassword($newHashedPassword);

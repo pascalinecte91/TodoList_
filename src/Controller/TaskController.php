@@ -22,7 +22,9 @@ class TaskController extends AbstractController
      */
     public function listAction(TaskRepository $taskRepository)
     {
-        return $this->render('task/list.html.twig', ['tasks' => $taskRepository->findAllForCurrentUser(false)]);
+        return $this->render('task/list.html.twig', [
+            'tasks' => $taskRepository->findAllForCurrentUser(false)
+        ]);
     }
 
 
@@ -31,8 +33,10 @@ class TaskController extends AbstractController
      */
     public function listEndingAction(TaskRepository $taskRepository)
     {
-        
-        return $this->render('task/list.ending.html.twig', ['tasks' => $taskRepository->findAllForCurrentUser(true)]);
+
+        return $this->render('task/list.ending.html.twig', [
+            'tasks' => $taskRepository->findAllForCurrentUser(true)
+        ]);
     }
 
     /**
@@ -65,7 +69,7 @@ class TaskController extends AbstractController
      */
     public function editAction(Task $task, Request $request, UserInterface $user)
     {
-        $this->denyAccessUnlessGranted('task_edit',$task);
+        $this->denyAccessUnlessGranted('task_edit', $task);
         $form = $this->createForm(TaskType::class, $task);
 
         $form->handleRequest($request);
@@ -88,25 +92,31 @@ class TaskController extends AbstractController
      */
     public function toggleTaskAction(Task $task)
     {
-        $this->denyAccessUnlessGranted('task_toggle',$task);
+        $this->denyAccessUnlessGranted('task_toggle', $task);
         $task->toggle(!$task->isDone());
         $this->getDoctrine()->getManager()->flush();
 
-        if ($task->isDone() == 1)  {
-            $this->addFlash('success', sprintf('La tâche %s est bien notée comme finie', $task->getTitle()));
+        if ($task->isDone() == 1) {
+            $this->addFlash('success', sprintf(
+                'La tâche %s est bien notée comme finie',
+                $task->getTitle()
+            ));
         } else {
-            $this->addFlash('success', sprintf('La tâche %s a bien été marquée comme à finir', $task->getTitle()));
+            $this->addFlash('success', sprintf(
+                'La tâche %s a bien été marquée comme à finir',
+                $task->getTitle()
+            ));
         }
         return $this->redirectToRoute('task_list');
     }
 
-    
+
     /**
      * @Route("/tasks/{id}/delete", name="task_delete")
      */
     public function deleteTaskAction(Task $task)
     {
-        $this->denyAccessUnlessGranted('task_delete',$task);
+        $this->denyAccessUnlessGranted('task_delete', $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($task);
         $em->flush();

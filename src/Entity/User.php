@@ -191,25 +191,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * Set the value of id
      *
      * @return  self
-     */ 
-    
+     */
+
 
     /**
      * Set the value of username
      *
      * @return  self
-     */ 
+     */
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
      */
     public function getUsername()
     {
-        
-    }  
-    public function __toString() {
-    
+    }
+    public function __toString()
+    {
+
         return $this->name;
     }
-
-    
 }

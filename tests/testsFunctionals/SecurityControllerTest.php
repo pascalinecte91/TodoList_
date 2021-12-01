@@ -22,7 +22,7 @@ class SecurityControllerTest extends WebTestCase
 
         $this->client->loginUser($testUser);
     }
-    
+
     public function testLoginUser()
     {
         $this->loginUser();
@@ -46,8 +46,7 @@ class SecurityControllerTest extends WebTestCase
 
     public function testBadPassword()
     {
-        $crawler =$this->client->request('GET', '/login');
+        $crawler = $this->client->request('GET', '/login');
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-        
     }
 }

@@ -20,7 +20,9 @@ class TaskRepository extends ServiceEntityRepository
     private $tokenStorage;
     private $security;
 
-    public function __construct(ManagerRegistry $registry, TokenStorageInterface $tokenStorage, Security $security)
+    public function __construct(ManagerRegistry $registry, 
+                                TokenStorageInterface $tokenStorage, 
+                                Security $security)
     {
         parent::__construct($registry, Task::class);
         $this->tokenStorage = $tokenStorage;

@@ -2,10 +2,10 @@
 
 namespace App\Tests\TestsFunctionals;
 
-use App\Entity\Task;
+use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class TaskRepositoryTest extends KernelTestCase
+class UserRepositoryTest extends KernelTestCase
 {
     /**
      * @var \Doctrine\ORM\EntityManager
@@ -22,15 +22,17 @@ class TaskRepositoryTest extends KernelTestCase
             ->getManager();
     }
 
-    public function testSearchByTitle(): void
+    public function testSearchByName(): void
     {
-        $task = $this->entityManager
-            ->getRepository(Task::class)
+        $user = $this->entityManager
+            ->getRepository(User::class)
             ->findOneBy([
-                'title' => 'test modification de la tâche',
+                'name' => 'pascaline',
             ]);
 
-        $this->assertSame('test modification de la tâche', $task->getTitle());
+        $this->assertSame('pascaline', $user->getName());
+        $this->assertSame('pascaline@gmail.com', $user->getEmail());
+       
     }
 
     protected function tearDown(): void
@@ -41,4 +43,5 @@ class TaskRepositoryTest extends KernelTestCase
         $this->entityManager->close();
         $this->entityManager = null;
     }
+
 }

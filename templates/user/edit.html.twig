@@ -2,10 +2,13 @@
 
 {% block header_title %}
 	{% if (is_granted('ROLE_ADMIN'))%}
-    <div class="text-center">
-		<h1>Modifier votre compte</h1>
-        </div>
-        <h2><strong>Utilisateur : {{ user.name }}</strong></h2>
+		<div class="text-center">
+			<h1>Modifier votre compte</h1>
+		</div>
+		<h2>
+			<strong>Utilisateur :
+				{{ user.name }}</strong>
+		</h2>
 	{% endif %}
 {% endblock %}
 
@@ -13,17 +16,11 @@
 
 {% block body %}
 
-		{{ form_start(form, {'action' : path('user_edit', { 'id' : user.id })}) }}
-		{{ form_widget(form) }}
-        {% if  is_granted('ROLE_ADMIN') %}
+	{{ form_start(form, {'action' : path('user_edit', { 'id' : user.id })}) }}
+	{{ form_widget(form) }}
+	{% if  is_granted('ROLE_ADMIN') %}
 		<button type="submit" class="btn btn-success pull-right">Modifier</button>
 	{% endif %}
 	{{ form_end(form) }}
 
 {% endblock %}
-
-
-
-
-
-

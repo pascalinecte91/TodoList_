@@ -17,9 +17,7 @@ et Contrôlez si elle n'est pas déjà crée.  Mettez à jour si nécessaire.
 5/ Testez vos modifications
 Lancez les tests pour vérifier qu'ils passent toujours après vos modifs :
 
-6/ Verifiez la qualité de votre code Avant de commiter votre code
-
-7/ Commitez votre code git commit -m "votre message détaillé"
+6/ Commitez votre code git commit -m "votre message détaillé"
 
 Type :
 
@@ -33,23 +31,23 @@ Type :
 - docs : rédaction ou mise à jour de documentation
 - test : ajout ou modification de tests-
 
-8/ Push votre branch git push origin my-new-feature
+7/ Push votre branch git push origin my-new-feature
 
-9/ Créez des Pull Request
+8/ Créez des Pull Request
 
-10/ php/bin/phpunit
+9/ php/bin/phpunit
     Mettez à jour les tests existants 
     Créez vos test.
 
-11/Standards à respecter
+10/Standards à respecter
 
 - PSR-1  = Norme de codage de base
-- PSR-2  = Guide de style ( remplacée par PSR-12)
 - PSR-4  = Amélioration de la PSR-0 Spécification pour les classes de chargement auto ( directive structure des fichiers)
 - PSR-7  = Interfacde de message HTTP
+- PSR-12  = Guide de style 
 
 - Le code doit respecter les standards de code de Symfony [link Contributing](https://symfony.com/doc/current/contributing/code/conventions.html)
 
-12/ Les conventions de noms
+11/ Les conventions de noms
 Utilisez des espaces de noms pour toutes vos classes et nommez-les dans UpperCamelCase
 Les variables, fonctions et arguments doivent être nommés dans camelCase

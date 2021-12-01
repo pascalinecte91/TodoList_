@@ -61,12 +61,25 @@ où sont stockés les utilisateurs.
 
 ## Pré Requis
 
+### Server
+
+besoin de :
+PHP  "php": ">=7.2.5" et p*hpMyAdmin
+
+Utilisation pour le projet de  :
+
+- Apache 2.4.46
+- phpMyAdmin 4.9.7
+- MySQL  5.7.31
+- PHP 7.4.9
+
 - Composer [Link download composer](https://getcomposer.org/download/)
 
 ## Library/ Package
 
 - composer require fzaninotto/faker
 - composer require phpunit/phpunit [doc php unit](https://phpunit.readthedocs.io/en/latest/installation.html#requirements)
+- composer require dama/doctrine-test-bundle
 
 ## Guide d'installation
 
@@ -87,11 +100,13 @@ DATABASE_URL="mysql://root@127.0.0.1:3306/projet_todoList?serverVersion=5.7"
 ```
 
 ## Créer la base de données et charger les fixtures
+
 ```sh
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixture:load
 ```
+
 Autres commandes:
 
 Vider cache si besoin:
@@ -99,21 +114,34 @@ Vider cache si besoin:
 
 ## Tests / Php unit
 
+```bash
 Installer et créer la base de données et charger les fixtures
-* data base environnements pour tests : (.env.test.local)
+
+- data base environnements pour tests : (.env.test.local)
 DATABASE_URL="mysql://root@127.0.0.1:3306/todoList_test?serverVersion=5.7"
-```
+
+
 php bin/console doctrine:database:create --env=test
 php bin/console doctrine:schema:create --env=test
 php bin/console doctrine:fixtures:load --env=test
 ```
 
 Liste des arguments pouvant être utilisés
+
 ```sh
 php ./vendor/bin/phpunit --help
 Lancement des tests: php bin/phpunit
 exemple : php bin/phpunit tests\TestsFunctionals --testdox
           php bin/console/phpunit --filter [nom de la fonction]      
 ```
+
+## Authentification
+
+Admin: Email : sebastien@gmail.fr
+Password: pascale
+
+Utilisateur : rene.gros@live.com
+Password: pascale
+
 
 ### Contribution (FR/EN) [Fr](https://github.com/pascalinecte91/TodoList_/blob/main/Contribution.md)  / [En](https://github.com/pascalinecte91/TodoList_/blob/main/Contributing.md)

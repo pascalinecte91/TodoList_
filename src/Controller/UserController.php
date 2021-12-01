@@ -30,7 +30,9 @@ class UserController extends AbstractController
 
     public function listAction()
     {
-        return $this->render('user/list.html.twig', ['users' => $this->getDoctrine()->getRepository(User::class)->findAll()]);
+        return $this->render('user/list.html.twig', [
+            'users' => $this->getDoctrine()->getRepository(User::class)->findAll()
+        ]);
     }
 
     /**
@@ -47,10 +49,10 @@ class UserController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-        
+
             $em->persist($user);
             $em->flush();
-            
+
             $this->addFlash('success', "L'utilisateur a bien été ajouté.");
 
             return $this->redirectToRoute('user_list');
@@ -65,7 +67,7 @@ class UserController extends AbstractController
      */
     public function editAction(User $user, Request $request)
     {
-  
+
         $form = $this->createForm(UserTypeEdit::class, $user);
 
         $form->handleRequest($request);
@@ -74,8 +76,8 @@ class UserController extends AbstractController
 
             $password = $this->hasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
-            
-         
+
+
             $this->getDoctrine()->getManager()->flush();
 
             $this->addFlash('success', "L'utilisateur a bien été modifié");
@@ -83,14 +85,16 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_list');
         }
 
-        return $this->render('user/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return $this->render('user/edit.html.twig', [
+            'form' => $form->createView(), 'user' => $user
+        ]);
     }
 
     /**
      * @Route("/users/{id}/delete", name="user_delete")
      * @IsGranted("USER_DELETE")
      */
-    public function deleteUserAction(Task $task,User $user)
+    public function deleteUserAction(Task $task, User $user)
     {
         $this->denyAccessUnlessGranted('user_delete', $task);
         $em = $this->getDoctrine()->getManager();

@@ -16,8 +16,11 @@ class DefaultControllerTest extends WebTestCase
 
     public function testHomePage(): void
     {
-
+        // la methode REQUEST  retourne une instance de Crawler qui va aider à trouver 
+        //l elements demandé sur la page (lins , form  etc)
         $this->client->request('GET', '/');
+
+        //ensuite on verifie
         $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
     }
 }
