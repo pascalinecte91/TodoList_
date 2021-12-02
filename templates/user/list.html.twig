@@ -23,6 +23,7 @@
 							<th>Adresse email</th>
 							<th>Role Admin</th>
 							<th>Nb de tâches</th>
+							<th>Actions</th>
 
 						</tr>
 					</thead>
@@ -44,8 +45,15 @@
 										<span class="d-none d-sm-inline">Modifier
 										</span>
 									</a>
+									<a href="{{ path('user_delete', {'id' : user.id}) }}" class="btn btn-danger btn-sm">
+											<span class="d-none d-sm-inline">Suppr.
+											</span>
+									
+									</a>
 								</td>
 							</tr>
+
+
 							<div class="d-none" id="user-{{ user.name }}" style="display: none">
 								<p>{{ user.id }}</p>
 							</div>

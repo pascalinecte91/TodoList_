@@ -39,7 +39,7 @@ class UserRepositoryTest extends KernelTestCase
     {
         parent::tearDown();
 
-        // doing this is recommended to avoid memory leaks
+        // eviter que la memoire ne soit encombrée
         $this->entityManager->close();
         $this->entityManager = null;
     }

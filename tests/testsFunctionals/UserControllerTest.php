@@ -41,14 +41,6 @@ class UserControllerTest extends WebTestCase
         $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
     }
 
-
-    public function testEditAction(): void
-    {
-        $this->loginUserAdmin();
-        $crawler = $this->client->request('GET', '/users/9/edit');
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
-    }
-
     public function testNewUserLoggedAsUser()
     {
         $this->loginUser();
@@ -75,13 +67,20 @@ class UserControllerTest extends WebTestCase
     {
 
         $this->loginUserAdmin();
-        $crawler = $this->client->request('GET', '/users/12/edit');
+        $crawler = $this->client->request('GET', '/users/1/edit');
 
         $this->client->submitForm('Modifier', [
-            'user_type_edit[name]' => 'test edit name',
-            'user_type_edit[email]' => 'test edit mail'
+            'user_type_edit[name]' => 'pascaline',
+            'user_type_edit[email]' => 'pascaline@gmail.com'
         ]);
+        $this->assertEquals(302, $this->client->getResponse()->getStatusCode());
 
-        $this->assertEquals(200, $this->client->getResponse()->getStatusCode()); 
-    } 
+        $crawler = $this->client->followRedirect();
+
+        $this->assertEquals(200, $this->client->getResponse()->getStatusCode());
+        $this->assertEquals(
+            1,
+            $crawler->filter('div.alert-success')->count()
+        );  
+    }
 }

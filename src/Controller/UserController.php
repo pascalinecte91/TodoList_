@@ -92,11 +92,10 @@ class UserController extends AbstractController
 
     /**
      * @Route("/users/{id}/delete", name="user_delete")
-     * @IsGranted("USER_DELETE")
      */
-    public function deleteUserAction(Task $task, User $user)
+    public function deleteUserAction(User $user)
     {
-        $this->denyAccessUnlessGranted('user_delete', $task);
+        //$this->denyAccessUnlessGranted('user_delete', $task);
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
