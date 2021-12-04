@@ -39,14 +39,7 @@ class TaskVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-        // on verifie que l'utilisateur est bien admin
-        if ($this->security->isGranted('ROLE_ADMIN'))
-            return true;
 
-        // On verifie si la tache a un proprietaire
-        if (null === $subject->getCreatedBy()) {
-            return false;
-        }
         switch ($attribute) {
             case self::TASK_EDIT:
                 //verifie si on peut  modifier
@@ -64,19 +57,42 @@ class TaskVoter extends Voter
 
         return false;
     }
+
     private function canEdit(Task $task, User $user)
     {
-        //le proprietaire peut modifier
+        // 1) L'utilisateur a les droits Admin
+        if ($this->security->isGranted('ROLE_ADMIN') === true) {
+            return true;
+        }
+
+        // 2) Si l'utilisateur n'a pas les droits Admin : un booléen true si l'utilisateur est le propriétaire ou false s'il ne l'est pas.
         return $user === $task->getCreatedBy();
     }
+
     private function canToggle(Task $task, User $user)
     {
-        //le proprietaire peut changer statut
+        // 1) L'utilisateur a les droits Admin, il peut éditer
+        if ($this->security->isGranted('ROLE_ADMIN') === true) {
+            return true;
+        }
+
+        // 2) Si l'utilisateur n'a pas les droits Admin, alors return un booléen true si l'utilisateur est le propriétaire ou false s'il ne l'est pas.
         return $user === $task->getCreatedBy();
     }
-    private function canDelete(Task $task, User $user)
-    {
-        //le proprietaire peut supprimer
+
+    private function canDelete(Task $task,User $user) {
+
+        // 1) check si l'utilisateur a le ROLE_ADMIN  et on  check  si la task a été créée par un anonyme. Si true, return true, 
+
+        if (
+            $this->security->isGranted('ROLE_ADMIN') === true
+            && $task->getCreatedBy() === null) {
+            return true;
+        }
+
+
+        //  2) Si le if dessus n'est pas vrai, alors return un true si l'utilisateur est le propriétaire, false sinon.
+
         return $user === $task->getCreatedBy();
     }
 }
